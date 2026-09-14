@@ -6,6 +6,7 @@ import { Footer } from "@/components/Footer";
 import { FloatingCTA } from "@/components/FloatingCTA";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { PageTransition } from "@/components/PageTransition";
+import { RouteProgressBar } from "@/components/RouteProgressBar";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
     <html lang="en" className={`dark scroll-smooth ${plusJakarta.variable} ${outfit.variable}`}>
       <body className="antialiased min-h-screen selection:bg-indigo-500 selection:text-white flex flex-col font-sans bg-[var(--bg-main)] text-[var(--text-primary)]">
         <ThemeProvider>
+          <RouteProgressBar />
           <Navbar />
           <main className="flex-1">
             <PageTransition>

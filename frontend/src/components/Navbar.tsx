@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
+  Home,
   Building2, 
   Smartphone, 
   ShieldAlert, 
@@ -12,15 +13,15 @@ import {
   Globe, 
   Sun, 
   Moon, 
-  Sparkle,
-  Zap,
-  Award,
-  Terminal,
-  Lock,
-  Menu,
-  X,
-  ChevronRight,
-  ArrowRight
+  Sparkle, 
+  Zap, 
+  Award, 
+  Terminal, 
+  Lock, 
+  Menu, 
+  X, 
+  ChevronRight, 
+  ArrowRight 
 } from "lucide-react";
 import { useTheme } from "@/components/ThemeProvider";
 
@@ -45,14 +46,14 @@ export function Navbar() {
   }, [pathname]);
 
   const navLinks = [
-    { href: "/", label: "Overview", icon: <Globe className="w-4 h-4" /> },
+    { href: "/", label: "Home", icon: <Home className="w-4 h-4 text-indigo-500" /> },
     { href: "/process", label: "Process", icon: <Zap className="w-4 h-4 text-indigo-500" /> },
     { href: "/case-studies", label: "Case Studies", icon: <Award className="w-4 h-4 text-cyan-500" /> },
-    { href: "/pilot-builder", label: "RFP Builder", icon: <Sparkles className="w-4 h-4 text-amber-500" />, badge: "Instant" },
-    { href: "/client", label: "Client Studio", icon: <Building2 className="w-4 h-4 text-indigo-500" />, badge: "AI Brief" },
-    { href: "/shopper", label: "Shopper PWA", icon: <Smartphone className="w-4 h-4 text-emerald-500" /> },
-    { href: "/admin", label: "AI QC Command", icon: <ShieldAlert className="w-4 h-4 text-rose-500" />, badge: "CV Engine" },
-    { href: "/api-docs", label: "API Console", icon: <Terminal className="w-4 h-4 text-cyan-500" />, badge: "Docs" },
+    { href: "/pilot-builder", label: "RFP Builder", icon: <Sparkles className="w-4 h-4 text-amber-500" /> },
+    { href: "/client", label: "Client Studio", icon: <Building2 className="w-4 h-4 text-indigo-500" /> },
+    { href: "/shopper", label: "Shopper Radar", icon: <Smartphone className="w-4 h-4 text-emerald-500" /> },
+    { href: "/admin", label: "AI QC Command", icon: <ShieldAlert className="w-4 h-4 text-rose-500" /> },
+    { href: "/api-docs", label: "API Console", icon: <Terminal className="w-4 h-4 text-cyan-500" /> },
   ];
 
   return (
@@ -70,11 +71,20 @@ export function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           
           {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
+          <Link 
+            href="/" 
+            prefetch={true}
+            onClick={() => {
+              if (pathname === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="flex items-center gap-2.5 group shrink-0 cursor-pointer"
+          >
             <motion.div
               whileHover={{ scale: 1.08, rotate: 3 }}
               whileTap={{ scale: 0.95 }}
-              className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/25 transition-transform"
+              className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/25 transition-transform shrink-0"
             >
               P
             </motion.div>
@@ -87,15 +97,16 @@ export function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Portal Switcher Navigation */}
-          <div className="hidden lg:flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 p-1 rounded-xl shadow-inner backdrop-blur-sm">
+          {/* Portal Switcher Tab Bar with Smooth Horizontal Scrolling */}
+          <div className="flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 p-1 rounded-xl shadow-inner backdrop-blur-sm overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap max-w-[48vw] sm:max-w-[55vw] md:max-w-[62vw] lg:max-w-none mx-2">
             {navLinks.map((item) => {
               const isActive = item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
+                  prefetch={true}
+                  className={`shrink-0 relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
                     isActive
                       ? "!text-white shadow-md shadow-indigo-600/30 scale-[1.02]"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800/60"
@@ -112,17 +123,6 @@ export function Navbar() {
                   <span className="relative z-10 flex items-center gap-1.5">
                     {item.icon}
                     <span>{item.label}</span>
-                    {item.badge && (
-                      <span
-                        className={`text-[9px] px-1.5 py-0.5 rounded-full uppercase tracking-wider font-extrabold ${
-                          isActive 
-                            ? "bg-indigo-800/90 !text-indigo-100" 
-                            : "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                        }`}
-                      >
-                        {item.badge}
-                      </span>
-                    )}
                   </span>
                 </Link>
               );
@@ -157,6 +157,7 @@ export function Navbar() {
             <div className="relative group hidden sm:block">
               <Link
                 href="/register"
+                prefetch={true}
                 className="text-xs font-extrabold px-3 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 transition-all flex items-center gap-1.5 shadow-sm font-heading"
               >
                 <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
@@ -166,6 +167,7 @@ export function Navbar() {
               <div className="absolute right-0 top-full mt-1 w-52 p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <Link
                   href="/register/client"
+                  prefetch={true}
                   className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 transition-all"
                 >
                   <div className="p-1.5 rounded-lg bg-indigo-100 dark:bg-indigo-950/50">
@@ -178,6 +180,7 @@ export function Navbar() {
                 </Link>
                 <Link
                   href="/register/shopper"
+                  prefetch={true}
                   className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 transition-all"
                 >
                   <div className="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/50">
@@ -194,6 +197,7 @@ export function Navbar() {
             {/* Sign In */}
             <Link
               href="/login"
+              prefetch={true}
               className="text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700/80 hover:border-indigo-500/50 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5 shadow-sm"
             >
               <Lock className="w-3.5 h-3.5 text-indigo-500" />
@@ -272,6 +276,7 @@ export function Navbar() {
                     >
                       <Link
                         href={item.href}
+                        prefetch={true}
                         className={`flex items-center justify-between p-3 rounded-xl transition-all ${
                           isActive
                             ? "bg-indigo-600 !text-white shadow-md"

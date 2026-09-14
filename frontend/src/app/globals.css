@@ -5,8 +5,9 @@
 @layer base {
   :root {
     --bg-main: #0a0e1a;
-    --bg-card: rgba(17, 24, 39, 0.8);
-    --bg-card-hover: rgba(31, 41, 55, 0.95);
+    --bg-gradient: radial-gradient(circle at 50% -15%, #1e1b4b 0%, #0a0e1a 45%, #020617 100%);
+    --bg-card: rgba(15, 23, 42, 0.9);
+    --bg-card-hover: rgba(30, 41, 59, 0.95);
     --border-color: rgba(99, 102, 241, 0.25);
     --border-highlight: rgba(99, 102, 241, 0.6);
     --text-primary: #ffffff;
@@ -20,8 +21,10 @@
     color-scheme: dark;
   }
 
-  [data-theme="light"] {
-    --bg-main: #f8fafc;
+  [data-theme="light"],
+  html:not(.dark) {
+    --bg-main: #ffffff;
+    --bg-gradient: radial-gradient(circle at 50% -10%, #f1f5f9 0%, #f8fafc 40%, #ffffff 100%);
     --bg-card: #ffffff;
     --bg-card-hover: #f8fafc;
     --border-color: #e2e8f0;
@@ -31,15 +34,16 @@
     --text-muted: #64748b;
     --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #0891b2 100%);
     --glow-color: rgba(99, 102, 241, 0.15);
-    --aurora-1: rgba(99, 102, 241, 0.08);
-    --aurora-2: rgba(168, 85, 247, 0.06);
-    --aurora-3: rgba(6, 182, 212, 0.05);
+    --aurora-1: rgba(99, 102, 241, 0.05);
+    --aurora-2: rgba(168, 85, 247, 0.04);
+    --aurora-3: rgba(6, 182, 212, 0.03);
     color-scheme: light;
   }
 
   [data-theme="midnight"] {
     --bg-main: #060517;
-    --bg-card: rgba(13, 11, 38, 0.85);
+    --bg-gradient: radial-gradient(circle at 50% -15%, #2e1065 0%, #060517 45%, #000000 100%);
+    --bg-card: rgba(13, 11, 38, 0.9);
     --bg-card-hover: rgba(26, 22, 66, 0.95);
     --border-color: rgba(139, 92, 246, 0.4);
     --border-highlight: rgba(168, 85, 247, 0.8);
@@ -60,10 +64,21 @@
    ========================================================================= */
 body {
   color: var(--text-primary);
-  background: radial-gradient(circle at 50% -15%, #231d60 0%, #0a0e1a 45%, #030712 100%) no-repeat fixed;
   background-color: var(--bg-main);
   overflow-x: hidden;
-  transition: background 0.35s ease, color 0.35s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--bg-gradient);
+  background-color: var(--bg-main);
+  pointer-events: none;
+  z-index: -1;
+  transform: translateZ(0);
+  transition: background 0.3s ease, background-color 0.3s ease;
 }
 
 /* =========================================================================
@@ -541,4 +556,15 @@ body {
    ========================================================================= */
 html {
   scroll-behavior: smooth;
+}
+
+/* =========================================================================
+   UTILITY: NO SCROLLBAR (Horizontal tab scrolling)
+   ========================================================================= */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

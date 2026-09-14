@@ -1,20 +1,17 @@
 "use client";
 
-import React, { useState, useRef, lazy, Suspense } from "react";
+import React, { useState, useRef } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { ProcessWorkflow } from "@/components/ProcessWorkflow";
+import { EnterpriseBrandTrust } from "@/components/EnterpriseBrandTrust";
+import { EnterprisePilotBuilder } from "@/components/EnterprisePilotBuilder";
+import { EnterpriseCaseStudies } from "@/components/EnterpriseCaseStudies";
+import { EnterpriseArchitecture } from "@/components/EnterpriseArchitecture";
 import { HeroVisualAnimation } from "@/components/HeroVisualAnimation";
 import { ParticleField } from "@/components/ParticleField";
 import { AnimatedCounter } from "@/components/AnimatedCounter";
 import { ScrollReveal } from "@/components/ScrollReveal";
-
-// Lazy-load heavy below-the-fold components for fast initial render
-const ProcessWorkflow = dynamic(() => import("@/components/ProcessWorkflow").then(m => ({ default: m.ProcessWorkflow })), { ssr: false });
-const EnterpriseBrandTrust = dynamic(() => import("@/components/EnterpriseBrandTrust").then(m => ({ default: m.EnterpriseBrandTrust })), { ssr: false });
-const EnterprisePilotBuilder = dynamic(() => import("@/components/EnterprisePilotBuilder").then(m => ({ default: m.EnterprisePilotBuilder })), { ssr: false });
-const EnterpriseCaseStudies = dynamic(() => import("@/components/EnterpriseCaseStudies").then(m => ({ default: m.EnterpriseCaseStudies })), { ssr: false });
-const EnterpriseArchitecture = dynamic(() => import("@/components/EnterpriseArchitecture").then(m => ({ default: m.EnterpriseArchitecture })), { ssr: false });
 import { 
   ShieldCheck, 
   Eye, 
@@ -561,7 +558,7 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal variant="fadeUp" className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
+          <ScrollReveal variant="fadeUp" staggerChildren={0.08} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-5">
             {globalHubs.map((hub, i) => (
               <motion.div
                 key={i}
@@ -604,7 +601,7 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal variant="fadeUp" className="grid md:grid-cols-2 gap-8">
+          <ScrollReveal variant="fadeUp" staggerChildren={0.12} className="grid md:grid-cols-2 gap-8">
             {customerProblems.map((problem, index) => (
               <div
                 key={index}
@@ -871,7 +868,7 @@ export default function Home() {
             </div>
           </ScrollReveal>
 
-          <ScrollReveal variant="fadeUp" className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+          <ScrollReveal variant="fadeUp" staggerChildren={0.1} className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
             <div className="p-7 rounded-3xl bg-white dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-all card-3d shadow-sm border-trace">
               <div className="text-indigo-600 dark:text-indigo-400 font-black text-base mb-2 flex items-center gap-2 font-heading">
                 <MapPin className="w-5 h-5" /> 01. Ground-Truth Data
