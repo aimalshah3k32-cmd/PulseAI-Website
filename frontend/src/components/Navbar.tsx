@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -11,9 +11,6 @@ import {
   ShieldAlert, 
   Sparkles, 
   Globe, 
-  Sun, 
-  Moon, 
-  Sparkle, 
   Zap, 
   Award, 
   Terminal, 
@@ -23,11 +20,9 @@ import {
   ChevronRight, 
   ArrowRight 
 } from "lucide-react";
-import { useTheme } from "@/components/ThemeProvider";
 
 export function Navbar() {
   const pathname = usePathname();
-  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -46,59 +41,38 @@ export function Navbar() {
   }, [pathname]);
 
   const navLinks = [
-    { href: "/", label: "Home", icon: <Home className="w-4 h-4 text-indigo-500" /> },
-    { href: "/process", label: "Process", icon: <Zap className="w-4 h-4 text-indigo-500" /> },
-    { href: "/case-studies", label: "Case Studies", icon: <Award className="w-4 h-4 text-cyan-500" /> },
-    { href: "/pilot-builder", label: "RFP Builder", icon: <Sparkles className="w-4 h-4 text-amber-500" /> },
-    { href: "/client", label: "Client Studio", icon: <Building2 className="w-4 h-4 text-indigo-500" /> },
-    { href: "/shopper", label: "Shopper Radar", icon: <Smartphone className="w-4 h-4 text-emerald-500" /> },
-    { href: "/admin", label: "AI QC Command", icon: <ShieldAlert className="w-4 h-4 text-rose-500" /> },
-    { href: "/api-docs", label: "API Console", icon: <Terminal className="w-4 h-4 text-cyan-500" /> },
+    { href: "/", label: "home" },
+    { href: "/process", label: "process" },
+    { href: "/case-studies", label: "case studies" },
+    { href: "/client", label: "client studio" },
+    { href: "/shopper", label: "shopper radar" },
+    { href: "/admin", label: "ai qc command" },
+    { href: "/#contact", label: "contact us" },
   ];
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -10, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        className={`border-b sticky top-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? "border-slate-200/80 dark:border-slate-700/50 bg-white/80 dark:bg-slate-950/70 backdrop-blur-2xl shadow-lg shadow-black/[0.03] dark:shadow-black/20"
-            : "border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/80 backdrop-blur-xl shadow-sm dark:shadow-none"
-        }`}
-      >
+      <nav className="border-b sticky top-0 z-50 bg-white border-slate-200 shadow-sm transition-all duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           
           {/* Brand Logo */}
           <Link 
             href="/" 
-            prefetch={true}
-            onClick={() => {
-              if (pathname === "/") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }
-            }}
-            className="flex items-center gap-2.5 group shrink-0 cursor-pointer"
+            className="flex items-center gap-2 group shrink-0"
           >
-            <motion.div
-              whileHover={{ scale: 1.08, rotate: 3 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/25 transition-transform shrink-0"
-            >
+            <div className="w-8 h-8 rounded-sm bg-blue-600 flex items-center justify-center font-bold text-white">
               P
-            </motion.div>
+            </div>
             <div className="flex flex-col">
-              <span className="font-black text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 font-heading">
-                Pulse<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-400">AI</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="font-bold text-xl tracking-tight text-slate-900 leading-none">
+                PulseAI
               </span>
-              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest -mt-1">Enterprise</span>
+              <span className="text-[10px] font-semibold text-slate-500 uppercase tracking-widest mt-0.5">Enterprise</span>
             </div>
           </Link>
 
-          {/* Portal Switcher Tab Bar with Smooth Horizontal Scrolling */}
-          <div className="flex items-center gap-1 bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200/80 dark:border-slate-800 p-1 rounded-xl shadow-inner backdrop-blur-sm overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap max-w-[48vw] sm:max-w-[55vw] md:max-w-[62vw] lg:max-w-none mx-2">
+          {/* Minimal Tab Bar */}
+          <div className="hidden md:flex items-center gap-8 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap mx-4">
             {navLinks.map((item) => {
               const isActive = item.href === "/" ? pathname === "/" : pathname?.startsWith(item.href);
               return (
@@ -106,89 +80,47 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   prefetch={true}
-                  className={`shrink-0 relative flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all duration-200 ${
+                  className={`relative py-5 text-sm font-medium transition-colors ${
                     isActive
-                      ? "!text-white shadow-md shadow-indigo-600/30 scale-[1.02]"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-200/60 dark:hover:bg-slate-800/60"
+                      ? "text-blue-600 font-bold border-b-2 border-blue-600"
+                      : "text-slate-600 hover:text-blue-600"
                   }`}
                 >
-                  {/* Active background with animation */}
-                  {isActive && (
-                    <motion.div
-                      layoutId="activeNavBg"
-                      className="absolute inset-0 bg-indigo-600 rounded-lg"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  <span className="relative z-10 flex items-center gap-1.5">
-                    {item.icon}
-                    <span>{item.label}</span>
-                  </span>
+                  {item.label}
                 </Link>
               );
             })}
           </div>
 
           {/* Right Action Header */}
-          <div className="flex items-center gap-2 sm:gap-2.5">
+          <div className="flex items-center gap-3">
             
-            {/* Theme Toggle */}
-            <motion.button
-              onClick={toggleTheme}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95, rotate: 15 }}
-              aria-label="Toggle Theme"
-              className="px-2.5 py-1.5 rounded-xl border border-slate-200 dark:border-indigo-500/30 bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-850 text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5 text-xs shadow-sm cursor-pointer group"
-              title="Toggle Theme"
-            >
-              {theme === "dark" && <Moon className="w-4 h-4 text-indigo-400 group-hover:rotate-12 transition-transform" />}
-              {theme === "midnight" && <Sparkle className="w-4 h-4 text-cyan-400 group-hover:rotate-45 transition-transform" />}
-              {theme === "light" && <Sun className="w-4 h-4 text-amber-500 group-hover:rotate-90 transition-transform" />}
-              
-              <div className="hidden sm:flex flex-col text-left">
-                <span className="text-[9px] uppercase font-bold text-slate-500 dark:text-slate-400 leading-none">Theme</span>
-                <span className="text-[11px] font-mono capitalize font-bold text-indigo-600 dark:text-indigo-300 leading-tight">
-                  {theme}
-                </span>
-              </div>
-            </motion.button>
-
             {/* Register Dropdown */}
             <div className="relative group hidden sm:block">
               <Link
                 href="/register"
-                prefetch={true}
-                className="text-xs font-extrabold px-3 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/40 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 transition-all flex items-center gap-1.5 shadow-sm font-heading"
+                className="text-sm font-semibold px-4 py-2 rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors"
               >
-                <Sparkles className="w-3.5 h-3.5 text-indigo-500" />
-                <span>Register</span>
+                Register
               </Link>
               
-              <div className="absolute right-0 top-full mt-1 w-52 p-1.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div className="absolute right-0 top-full mt-2 w-52 bg-white border border-slate-200 shadow-md opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 <Link
                   href="/register/client"
-                  prefetch={true}
-                  className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 transition-all"
+                  className="flex items-center gap-3 p-3 hover:bg-slate-50 text-sm font-medium text-slate-800 transition-colors"
                 >
-                  <div className="p-1.5 rounded-lg bg-indigo-100 dark:bg-indigo-950/50">
-                    <Building2 className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
-                  </div>
+                  <Building2 className="w-4 h-4 text-blue-600" />
                   <div>
                     <div>Client Account</div>
-                    <div className="text-[10px] text-slate-400 font-normal">For Brands & Retail</div>
                   </div>
                 </Link>
                 <Link
                   href="/register/shopper"
-                  prefetch={true}
-                  className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold text-slate-800 dark:text-slate-200 transition-all"
+                  className="flex items-center gap-3 p-3 hover:bg-slate-50 text-sm font-medium text-slate-800 transition-colors border-t border-slate-100"
                 >
-                  <div className="p-1.5 rounded-lg bg-emerald-100 dark:bg-emerald-950/50">
-                    <Smartphone className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                  </div>
+                  <Smartphone className="w-4 h-4 text-emerald-600" />
                   <div>
                     <div>Field Shopper</div>
-                    <div className="text-[10px] text-slate-400 font-normal">Earn from Audits</div>
                   </div>
                 </Link>
               </div>
@@ -197,36 +129,30 @@ export function Navbar() {
             {/* Sign In */}
             <Link
               href="/login"
-              prefetch={true}
-              className="text-xs font-bold px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700/80 hover:border-indigo-500/50 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 transition-all flex items-center gap-1.5 shadow-sm"
+              className="text-sm font-semibold px-4 py-2 rounded-md border border-slate-300 text-slate-700 hover:bg-slate-50 transition-colors hidden sm:block"
             >
-              <Lock className="w-3.5 h-3.5 text-indigo-500" />
-              <span className="hidden sm:inline">Sign In</span>
+              Sign In
             </Link>
 
             {/* Launch Studio CTA */}
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                href="/client"
-                className="text-xs font-bold bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 !text-white px-3.5 py-2 rounded-xl transition-all shadow-md shadow-indigo-600/25 flex items-center gap-1.5 font-heading"
-              >
-                <Sparkles className="w-3.5 h-3.5 !text-white" />
-                <span className="hidden sm:inline">Launch Studio</span>
-                <span className="sm:hidden">Studio</span>
-              </Link>
-            </motion.div>
+            <Link
+              href="/client"
+              className="text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition-colors"
+            >
+              <span className="hidden sm:inline">Client Login</span>
+              <span className="sm:hidden">Login</span>
+            </Link>
 
             {/* Mobile Hamburger */}
-            <motion.button
+            <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              whileTap={{ scale: 0.9 }}
-              className="lg:hidden p-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all"
+              className="lg:hidden p-2 rounded-md border border-slate-300 text-slate-600"
             >
               {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </motion.button>
+            </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
       {/* Mobile Drawer */}
       <AnimatePresence>
@@ -247,20 +173,19 @@ export function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 bottom-0 w-80 bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 z-50 lg:hidden overflow-y-auto"
+              className="fixed top-0 right-0 bottom-0 w-80 bg-white border-l border-slate-200 z-50 lg:hidden overflow-y-auto"
             >
               {/* Drawer Header */}
-              <div className="flex items-center justify-between p-5 border-b border-slate-100 dark:border-slate-800">
-                <span className="font-black text-lg text-slate-900 dark:text-white font-heading">
-                  Navigation
+              <div className="flex items-center justify-between p-5 border-b border-slate-100">
+                <span className="font-bold text-lg text-slate-900">
+                  Menu
                 </span>
-                <motion.button
+                <button
                   onClick={() => setMobileOpen(false)}
-                  whileTap={{ scale: 0.9, rotate: 90 }}
-                  className="p-2 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-300"
+                  className="p-2 rounded-md bg-slate-100 text-slate-600"
                 >
                   <X className="w-5 h-5" />
-                </motion.button>
+                </button>
               </div>
 
               {/* Nav Links */}
@@ -277,17 +202,16 @@ export function Navbar() {
                       <Link
                         href={item.href}
                         prefetch={true}
-                        className={`flex items-center justify-between p-3 rounded-xl transition-all ${
+                        className={`flex items-center justify-between p-3 rounded-md transition-colors ${
                           isActive
-                            ? "bg-indigo-600 !text-white shadow-md"
-                            : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-900"
+                            ? "bg-blue-50 text-blue-600 font-bold"
+                            : "text-slate-700 hover:bg-slate-50"
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          {item.icon}
-                          <span className="text-sm font-bold">{item.label}</span>
+                          <span className="text-sm font-semibold capitalize">{item.label}</span>
                         </div>
-                        <ChevronRight className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-400"}`} />
+                        <ChevronRight className={`w-4 h-4 ${isActive ? "text-blue-600" : "text-slate-400"}`} />
                       </Link>
                     </motion.div>
                   );
@@ -295,20 +219,20 @@ export function Navbar() {
               </div>
 
               {/* Drawer CTAs */}
-              <div className="p-4 space-y-2 border-t border-slate-100 dark:border-slate-800 mt-2">
+              <div className="p-4 space-y-3 border-t border-slate-100 mt-2">
                 <Link
                   href="/register/client"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/25"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-md bg-blue-600 text-white font-semibold text-sm"
                 >
                   <Building2 className="w-4 h-4" />
-                  Register as Client
+                  Client Registration
                 </Link>
                 <Link
                   href="/register/shopper"
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm shadow-lg shadow-emerald-600/25"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-md bg-slate-800 text-white font-semibold text-sm"
                 >
                   <Smartphone className="w-4 h-4" />
-                  Join as Shopper
+                  Shopper Signup
                 </Link>
               </div>
             </motion.div>
@@ -318,3 +242,5 @@ export function Navbar() {
     </>
   );
 }
+
+

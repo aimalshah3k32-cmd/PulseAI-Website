@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -105,47 +105,47 @@ export default function ClientStudio() {
     <div className="min-h-screen bg-transparent pb-20 font-sans">
       
       {/* Top Banner Header */}
-      <div className="border-b border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/40 backdrop-blur-md">
+      <div className="border-b border-slate-200 bg-white">
         <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-2">
-              <div className="px-2.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-400 text-xs font-bold uppercase font-heading tracking-wider">
+              <div className="px-3 py-1 rounded-md bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold uppercase tracking-wider">
                 Enterprise Client Studio
               </div>
-              <span className="text-slate-500 text-xs font-medium">• Campaign Orchestration & Field Radar</span>
+              <span className="text-slate-500 text-xs font-medium">â€¢ Campaign Orchestration & Field Radar</span>
             </div>
-            <h1 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white font-heading mt-1">
+            <h1 className="text-2xl sm:text-4xl font-bold text-slate-900 mt-2">
               AI Campaign Command & Brief Studio
             </h1>
           </div>
 
           {/* Tab Selector */}
-          <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1.5 rounded-2xl shadow-inner">
+          <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 p-1.5 rounded-md">
             <button
               onClick={() => setActiveTab("builder")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === "builder" ? "bg-indigo-600 !text-white shadow-md shadow-indigo-600/30" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              className={`flex items-center gap-2 px-4 py-2 rounded-sm text-sm font-semibold transition-colors ${
+                activeTab === "builder" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-4 h-4" />
               <span>AI Brief Parser</span>
             </button>
             <button
               onClick={() => setActiveTab("map")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === "map" ? "bg-indigo-600 !text-white shadow-md shadow-indigo-600/30" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              className={`flex items-center gap-2 px-4 py-2 rounded-sm text-sm font-semibold transition-colors ${
+                activeTab === "map" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              <MapPin className="w-3.5 h-3.5" />
+              <MapPin className="w-4 h-4" />
               <span>Live Store Map</span>
             </button>
             <button
               onClick={() => setActiveTab("analytics")}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                activeTab === "analytics" ? "bg-indigo-600 !text-white shadow-md shadow-indigo-600/30" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              className={`flex items-center gap-2 px-4 py-2 rounded-sm text-sm font-semibold transition-colors ${
+                activeTab === "analytics" ? "bg-blue-600 text-white shadow-sm" : "text-slate-600 hover:text-slate-900"
               }`}
             >
-              <BarChart3 className="w-3.5 h-3.5" />
+              <BarChart3 className="w-4 h-4" />
               <span>Executive AI Reports</span>
             </button>
           </div>
@@ -160,16 +160,16 @@ export default function ClientStudio() {
             
             {/* Input Column */}
             <div className="lg:col-span-6 space-y-6">
-              <div className="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/50 backdrop-blur-sm shadow-xl dark:shadow-none">
+              <div className="p-6 sm:p-8 rounded-md border border-slate-200 bg-white shadow-sm">
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <Sparkles className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                    <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white font-heading">Natural Language & Voice Brief</h2>
+                    <Sparkles className="w-5 h-5 text-blue-600" />
+                    <h2 className="text-lg sm:text-xl font-bold text-slate-900">Natural Language & Voice Brief</h2>
                   </div>
-                  <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">AI Model: Pulse-NLP-v2</span>
+                  <span className="text-xs text-slate-500 font-mono">AI Model: Pulse-NLP-v2</span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-5 leading-relaxed">
+                <p className="text-sm text-slate-600 mb-5 leading-relaxed">
                   Type your raw business instructions or dictate with voice. The AI engine will extract target locations, recommended payouts, quotas, and build validation questionnaires.
                 </p>
 
@@ -180,7 +180,7 @@ export default function ClientStudio() {
                     value={briefInput}
                     onChange={(e) => setBriefInput(e.target.value)}
                     placeholder="e.g. Audit 50 supermarket locations in New York, London, and Paris for infant formula stock, shelf tag prices, and promotional banners..."
-                    className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 text-sm focus:outline-none focus:border-indigo-500 transition-colors resize-none shadow-sm"
+                    className="w-full p-4 rounded-md bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 text-sm focus:outline-none focus:border-blue-500 transition-colors resize-none"
                   />
                   {isRecording && (
                     <div className="absolute top-3 right-3 flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-500/20 border border-rose-300 dark:border-rose-500/40 text-rose-700 dark:text-rose-400 text-xs animate-pulse">
@@ -193,20 +193,20 @@ export default function ClientStudio() {
                 <div className="flex items-center justify-between mt-4">
                   <button
                     onClick={toggleVoiceRecording}
-                    className={`p-3 rounded-2xl border text-xs font-bold flex items-center gap-2 transition-all ${
+                    className={`px-4 py-2 rounded-md border text-sm font-semibold flex items-center gap-2 transition-colors ${
                       isRecording 
-                        ? "bg-rose-600 !text-white border-rose-500 shadow-lg shadow-rose-600/30" 
-                        : "bg-slate-100 dark:bg-slate-800/80 text-slate-800 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-200"
+                        ? "bg-rose-600 text-white border-rose-600" 
+                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
                     }`}
                   >
-                    {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />}
+                    {isRecording ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4 text-blue-600" />}
                     <span>{isRecording ? "Stop Dictation" : "Voice Dictate"}</span>
                   </button>
 
                   <button
                     onClick={() => handleParseBrief()}
                     disabled={isParsing || !briefInput.trim()}
-                    className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 !text-white text-xs font-black transition-all shadow-xl shadow-indigo-600/25 flex items-center gap-2 disabled:opacity-50 font-heading"
+                    className="px-6 py-2.5 rounded-md bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold transition-colors flex items-center gap-2 disabled:opacity-50"
                   >
                     {isParsing ? (
                       <>
@@ -223,8 +223,8 @@ export default function ClientStudio() {
                 </div>
 
                 {/* Pre-made template quick chips */}
-                <div className="mt-6 pt-6 border-t border-slate-100 dark:border-slate-800/80">
-                  <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-2.5 font-heading">
+                <div className="mt-6 pt-6 border-t border-slate-100">
+                  <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-3">
                     Or Try Sample Enterprise Briefs:
                   </span>
                   <div className="space-y-2">
@@ -235,10 +235,10 @@ export default function ClientStudio() {
                           setBriefInput(sample.text);
                           handleParseBrief(sample.text);
                         }}
-                        className="w-full text-left p-3 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 hover:border-indigo-500 hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-xs text-slate-700 dark:text-slate-300 flex items-center justify-between group shadow-sm"
+                        className="w-full text-left p-3 rounded-md bg-slate-50 border border-slate-200 hover:border-blue-500 hover:bg-slate-100 transition-colors text-sm text-slate-700 flex items-center justify-between group"
                       >
-                        <span className="font-bold text-slate-900 dark:text-slate-200">{sample.title}</span>
-                        <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 group-hover:translate-x-1 transition-all" />
+                        <span className="font-semibold text-slate-900">{sample.title}</span>
+                        <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-transform" />
                       </button>
                     ))}
                   </div>
@@ -252,52 +252,52 @@ export default function ClientStudio() {
                 <motion.div
                   initial={{ opacity: 0, y: 15 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-6 sm:p-8 rounded-3xl border border-indigo-200 dark:border-indigo-500/30 bg-white dark:bg-slate-900/60 backdrop-blur-md relative overflow-hidden shadow-xl dark:shadow-none"
+                  className="p-6 sm:p-8 rounded-md border border-slate-200 bg-white relative overflow-hidden shadow-sm"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-                      <span className="text-sm font-black text-slate-900 dark:text-white font-heading">AI Schema Synthesized Successfully</span>
+                      <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                      <span className="text-base font-bold text-slate-900">AI Schema Synthesized Successfully</span>
                     </div>
-                    <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-mono font-bold">
+                    <span className="px-2.5 py-0.5 rounded-md bg-emerald-50 border border-emerald-100 text-emerald-700 text-xs font-semibold">
                       Ready to Deploy
                     </span>
                   </div>
 
                   {/* Title & Stats */}
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mb-2 font-heading">{parsedResult.suggested_title}</h3>
-                  <p className="text-xs text-indigo-900 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-500/20 p-3.5 rounded-2xl mb-6 shadow-sm">
-                    🤖 {parsedResult.ai_rationale}
+                  <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">{parsedResult.suggested_title}</h3>
+                  <p className="text-sm text-blue-900 bg-blue-50 border border-blue-100 p-4 rounded-md mb-6">
+                    ðŸ¤– {parsedResult.ai_rationale}
                   </p>
 
                   <div className="grid grid-cols-3 gap-3 mb-6">
-                    <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Type</span>
-                      <span className="text-xs font-black text-cyan-600 dark:text-cyan-400 uppercase">{parsedResult.project_type.replace("_", " ")}</span>
+                    <div className="p-3 rounded-md bg-slate-50 border border-slate-200 text-center">
+                      <span className="text-xs text-slate-500 uppercase font-semibold block">Type</span>
+                      <span className="text-sm font-bold text-blue-600 uppercase">{parsedResult.project_type.replace("_", " ")}</span>
                     </div>
-                    <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Payout / Audit</span>
-                      <span className="text-sm font-black text-emerald-600 dark:text-emerald-400 font-mono">${parsedResult.recommended_payout}</span>
+                    <div className="p-3 rounded-md bg-slate-50 border border-slate-200 text-center">
+                      <span className="text-xs text-slate-500 uppercase font-semibold block">Payout / Audit</span>
+                      <span className="text-sm font-bold text-emerald-600 font-mono">${parsedResult.recommended_payout}</span>
                     </div>
-                    <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 text-center shadow-sm">
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 uppercase font-bold block">Branches</span>
-                      <span className="text-sm font-black text-indigo-600 dark:text-indigo-400 font-mono">{parsedResult.extracted_locations.length} Stores</span>
+                    <div className="p-3 rounded-md bg-slate-50 border border-slate-200 text-center">
+                      <span className="text-xs text-slate-500 uppercase font-semibold block">Branches</span>
+                      <span className="text-sm font-bold text-blue-600 font-mono">{parsedResult.extracted_locations.length} Stores</span>
                     </div>
                   </div>
 
                   {/* Extracted Locations */}
                   <div className="mb-6">
-                    <span className="text-xs font-bold text-slate-800 dark:text-slate-300 uppercase tracking-wider block mb-2 font-heading">
+                    <span className="text-sm font-semibold text-slate-800 uppercase tracking-wider block mb-3">
                       Extracted Branch Coordinates & Geofences:
                     </span>
                     <div className="space-y-2 max-h-36 overflow-y-auto pr-1">
                       {parsedResult.extracted_locations.map((loc: any, i: number) => (
-                        <div key={i} className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 flex items-center justify-between text-xs shadow-sm">
+                        <div key={i} className="p-3 rounded-md bg-slate-50 border border-slate-200 flex items-center justify-between text-sm">
                           <div className="flex items-center gap-2">
-                            <MapPin className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                            <span className="font-bold text-slate-800 dark:text-slate-200">{loc.store_name}</span>
+                            <MapPin className="w-4 h-4 text-blue-600" />
+                            <span className="font-semibold text-slate-800">{loc.store_name}</span>
                           </div>
-                          <span className="text-[11px] text-slate-500 dark:text-slate-400">{loc.city}, {loc.country} ({loc.geofence_radius_meters}m)</span>
+                          <span className="text-xs text-slate-500">{loc.city}, {loc.country} ({loc.geofence_radius_meters}m)</span>
                         </div>
                       ))}
                     </div>
@@ -305,20 +305,20 @@ export default function ClientStudio() {
 
                   {/* Generated Questionnaire */}
                   <div className="mb-6">
-                    <span className="text-xs font-bold text-slate-800 dark:text-slate-300 uppercase tracking-wider block mb-2 font-heading">
+                    <span className="text-sm font-semibold text-slate-800 uppercase tracking-wider block mb-3">
                       Generated Multi-Modal Questionnaire:
                     </span>
                     <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                       {parsedResult.generated_questions.map((q: any, i: number) => (
-                        <div key={i} className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 text-xs shadow-sm">
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="font-bold text-indigo-700 dark:text-indigo-300">Q{i + 1}: {q.title}</span>
-                            <span className="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 uppercase font-mono font-bold">{q.type}</span>
+                        <div key={i} className="p-4 rounded-md bg-slate-50 border border-slate-200 text-sm">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-semibold text-blue-700">Q{i + 1}: {q.title}</span>
+                            <span className="text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700 uppercase font-mono font-semibold">{q.type}</span>
                           </div>
                           {q.options && (
-                            <div className="flex flex-wrap gap-1 mt-2">
+                            <div className="flex flex-wrap gap-2 mt-2">
                               {q.options.map((opt: string, optIdx: number) => (
-                                <span key={optIdx} className="text-[10px] px-2 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 font-medium">
+                                <span key={optIdx} className="text-xs px-2 py-1 rounded bg-white border border-slate-200 text-slate-600 font-medium">
                                   {opt}
                                 </span>
                               ))}
@@ -333,32 +333,32 @@ export default function ClientStudio() {
                   <button
                     onClick={handleDeployProject}
                     disabled={deployedSuccess}
-                    className={`w-full py-4 rounded-2xl font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl font-heading ${
+                    className={`w-full py-4 rounded-md font-bold text-sm uppercase tracking-wider transition-colors flex items-center justify-center gap-2 ${
                       deployedSuccess
-                        ? "bg-emerald-600 !text-white shadow-emerald-600/30"
-                        : "bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 !text-white shadow-indigo-600/30"
+                        ? "bg-emerald-600 text-white"
+                        : "bg-blue-600 hover:bg-blue-700 text-white"
                     }`}
                   >
                     {deployedSuccess ? (
                       <>
-                        <CheckCircle2 className="w-4 h-4 !text-white" />
+                        <CheckCircle2 className="w-5 h-5" />
                         <span>Campaign Live on Global Shopper Radar!</span>
                       </>
                     ) : (
                       <>
-                        <Globe2 className="w-4 h-4 !text-white" />
+                        <Globe2 className="w-5 h-5" />
                         <span>Deploy Campaign to Global Radar (${parsedResult.estimated_budget} Total Escrow)</span>
                       </>
                     )}
                   </button>
                 </motion.div>
               ) : (
-                <div className="h-full flex flex-col items-center justify-center p-12 rounded-3xl border border-dashed border-slate-300 dark:border-slate-800 text-center text-slate-400 dark:text-slate-500 bg-white/40 dark:bg-slate-900/20">
-                  <div className="w-14 h-14 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mb-4">
-                    <Sparkles className="w-7 h-7" />
+                <div className="h-full flex flex-col items-center justify-center p-12 rounded-md border border-dashed border-slate-300 text-center text-slate-500 bg-slate-50">
+                  <div className="w-14 h-14 rounded-full bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-4">
+                    <Sparkles className="w-6 h-6" />
                   </div>
-                  <h3 className="font-heading font-black text-slate-900 dark:text-slate-300 text-base mb-1">AI Schema Generator Idle</h3>
-                  <p className="text-xs text-slate-500 max-w-sm">Enter raw text on the left or select a sample brief to watch the schema, geofence, and questionnaire automatically generate.</p>
+                  <h3 className="font-bold text-slate-900 text-lg mb-2">AI Schema Generator Idle</h3>
+                  <p className="text-sm text-slate-600 max-w-sm">Enter raw text on the left or select a sample brief to watch the schema, geofence, and questionnaire automatically generate.</p>
                 </div>
               )}
             </div>
@@ -369,17 +369,17 @@ export default function ClientStudio() {
         {/* TAB 2: LIVE STORE GEOFENCE MAP RADAR */}
         {activeTab === "map" && (
           <div className="space-y-6">
-            <div className="p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 backdrop-blur-md shadow-xl dark:shadow-none">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div className="p-6 sm:p-8 rounded-md border border-slate-200 bg-white shadow-sm">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
                 <div>
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white font-heading">
+                  <h2 className="text-xl sm:text-2xl font-bold text-slate-900">
                     Active Global Auditing Radar & Geofence Clusters
                   </h2>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p className="text-sm text-slate-500 mt-1">
                     Real-time hardware geofences dispatched across 50+ international metropolitan markets.
                   </p>
                 </div>
-                <span className="text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 px-3 py-1.5 rounded-xl w-fit">
+                <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-md w-fit">
                   RADAR ACTIVE: 40,000+ AUDITORS ONLINE
                 </span>
               </div>
@@ -392,20 +392,20 @@ export default function ClientStudio() {
                   { store: "Galeries Lafayette", city: "Paris, France", evaluators: "4,120", response: "24m", status: "Active", progress: 76 },
                   { store: "Fifth Avenue Retail", city: "New York, USA", evaluators: "8,950", response: "9m", status: "Active", progress: 98 },
                 ].map((item, i) => (
-                  <div key={i} className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3 shadow-sm card-3d">
+                  <div key={i} className="p-5 rounded-md bg-slate-50 border border-slate-200 space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-black text-slate-900 dark:text-white font-heading">{item.store}</span>
-                      <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 font-mono font-bold">
+                      <span className="text-sm font-bold text-slate-900">{item.store}</span>
+                      <span className="text-[10px] px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-700 font-mono font-bold">
                         {item.status}
                       </span>
                     </div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                    <div className="text-sm text-slate-600 flex items-center gap-1">
+                      <MapPin className="w-4 h-4 text-blue-600" />
                       <span>{item.city}</span>
                     </div>
-                    <div className="pt-2 border-t border-slate-200 dark:border-slate-800/80 flex justify-between text-xs font-mono">
-                      <span className="text-slate-600 dark:text-slate-400">{item.evaluators} Shoppers</span>
-                      <span className="text-indigo-600 dark:text-indigo-400 font-bold">{item.response} Dispatch</span>
+                    <div className="pt-3 border-t border-slate-200 flex justify-between text-xs font-mono">
+                      <span className="text-slate-600">{item.evaluators} Shoppers</span>
+                      <span className="text-blue-600 font-bold">{item.response} Dispatch</span>
                     </div>
                   </div>
                 ))}
@@ -418,22 +418,22 @@ export default function ClientStudio() {
         {activeTab === "analytics" && (
           <div className="space-y-6">
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="p-6 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-none card-3d">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase font-heading">Planogram Compliance Index</span>
-                <div className="text-3xl font-black text-emerald-600 dark:text-emerald-400 font-mono mt-2">94.8%</div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">+6.4% improvement vs previous quarter</p>
+              <div className="p-6 rounded-md bg-white border border-slate-200 shadow-sm">
+                <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider block">Planogram Compliance Index</span>
+                <div className="text-3xl font-bold text-emerald-600 font-mono mt-3">94.8%</div>
+                <p className="text-sm text-slate-600 mt-2">+6.4% improvement vs previous quarter</p>
               </div>
 
-              <div className="p-6 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-none card-3d">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase font-heading">Average Audit Turnaround</span>
-                <div className="text-3xl font-black text-indigo-600 dark:text-indigo-400 font-mono mt-2">1.18s</div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Autonomous CV verification latency</p>
+              <div className="p-6 rounded-md bg-white border border-slate-200 shadow-sm">
+                <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider block">Average Audit Turnaround</span>
+                <div className="text-3xl font-bold text-blue-600 font-mono mt-3">1.18s</div>
+                <p className="text-sm text-slate-600 mt-2">Autonomous CV verification latency</p>
               </div>
 
-              <div className="p-6 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-none card-3d">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase font-heading">Net Escalation / Fraud Rate</span>
-                <div className="text-3xl font-black text-rose-600 dark:text-rose-400 font-mono mt-2">2.1%</div>
-                <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">Quarantined by hardware geofence check</p>
+              <div className="p-6 rounded-md bg-white border border-slate-200 shadow-sm">
+                <span className="text-sm font-semibold text-slate-500 uppercase tracking-wider block">Net Escalation / Fraud Rate</span>
+                <div className="text-3xl font-bold text-rose-600 font-mono mt-3">2.1%</div>
+                <p className="text-sm text-slate-600 mt-2">Quarantined by hardware geofence check</p>
               </div>
             </div>
           </div>
@@ -443,3 +443,5 @@ export default function ClientStudio() {
     </div>
   );
 }
+
+

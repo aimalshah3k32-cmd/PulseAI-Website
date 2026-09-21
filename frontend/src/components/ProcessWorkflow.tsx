@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -45,7 +45,7 @@ export function ProcessWorkflow() {
 
   // Interactive Checklist State (Process SOP Runner)
   const [checklist, setChecklist] = useState([
-    { id: 1, title: "Hardware Geofence GPS Handshake", step: 1, completed: true, detail: "±2.4m coordinate lock confirmed" },
+    { id: 1, title: "Hardware Geofence GPS Handshake", step: 1, completed: true, detail: "Â±2.4m coordinate lock confirmed" },
     { id: 2, title: "EXIF Timestamp & Gyroscope Anti-Spoofing", step: 1, completed: true, detail: "Tamper-proof hardware signature verified" },
     { id: 3, title: "High-Res Planogram Panorama Ingestion", step: 2, completed: true, detail: "4K ultra-wide aisle image processed" },
     { id: 4, title: "YOLOv8 Edge Object Detection & Facings", step: 2, completed: true, detail: "18 facings identified in 840ms" },
@@ -67,7 +67,7 @@ export function ProcessWorkflow() {
       id: 0,
       title: "AI Brief & Planogram Setup",
       subtitle: "Autonomous Rule Generation",
-      badge: "Stage 01 • Ingestion",
+      badge: "Stage 01 â€¢ Ingestion",
       icon: <FileCode className="w-5 h-5" />,
       duration: "< 3.5 Seconds",
       summary: "Upload your raw PDF guidelines, Excel planograms, or plain text instructions. Our multi-modal LLM parser converts enterprise briefs into hardware-enforced audit checklists and computer vision target weights.",
@@ -78,7 +78,7 @@ export function ProcessWorkflow() {
         "Configurable SLA criteria and instant escrow fund reservation"
       ],
       metrics: [
-        { label: "Brief Parsing Time", value: "3.2s", color: "text-indigo-600 dark:text-indigo-400" },
+        { label: "Brief Parsing Time", value: "3.2s", color: "text-blue-600 dark:text-blue-400" },
         { label: "Rule Accuracy", value: "99.8%", color: "text-emerald-600 dark:text-emerald-400" },
         { label: "Manual Hours Saved", value: "96%", color: "text-cyan-600 dark:text-cyan-400" }
       ]
@@ -87,7 +87,7 @@ export function ProcessWorkflow() {
       id: 1,
       title: "Geofenced Shopper Dispatch",
       subtitle: "Biometric KYC Field Mesh",
-      badge: "Stage 02 • Mobilization",
+      badge: "Stage 02 â€¢ Mobilization",
       icon: <Radar className="w-5 h-5" />,
       duration: "12-18 Minutes",
       summary: "Our intelligent dispatch engine pings pre-vetted, KYC-verified field shoppers within a 1.5km radius of your target retail branches. Submissions are cryptographically locked behind hardware GPS geofence fences.",
@@ -98,16 +98,16 @@ export function ProcessWorkflow() {
         "Biometric face-match authentication before entering the store"
       ],
       metrics: [
-        { label: "Avg Dispatch Radius", value: "1.2 km", color: "text-indigo-600 dark:text-indigo-400" },
+        { label: "Avg Dispatch Radius", value: "1.2 km", color: "text-blue-600 dark:text-blue-400" },
         { label: "Acceptance Rate", value: "94.6%", color: "text-emerald-600 dark:text-emerald-400" },
-        { label: "GPS Accuracy Gate", value: "±3 Meters", color: "text-cyan-600 dark:text-cyan-400" }
+        { label: "GPS Accuracy Gate", value: "Â±3 Meters", color: "text-cyan-600 dark:text-cyan-400" }
       ]
     },
     {
       id: 2,
       title: "Edge AI Vision Inspection",
       subtitle: "Sub-Second CV Verification",
-      badge: "Stage 03 • Inference",
+      badge: "Stage 03 â€¢ Inference",
       icon: <Scan className="w-5 h-5" />,
       duration: "840 Milliseconds",
       summary: "The moment a shopper snaps a shelf panorama, our fine-tuned YOLOv8 computer vision model analyzes shelf facings, eye-level share of shelf, promotional wobblers, and OCR pricing tags with sub-second latency.",
@@ -118,7 +118,7 @@ export function ProcessWorkflow() {
         "Automated quarantine of blurry, angled, or duplicate images"
       ],
       metrics: [
-        { label: "Inference Latency", value: "840ms", color: "text-indigo-600 dark:text-indigo-400" },
+        { label: "Inference Latency", value: "840ms", color: "text-blue-600 dark:text-blue-400" },
         { label: "Detection Precision", value: "99.2%", color: "text-emerald-600 dark:text-emerald-400" },
         { label: "Fraud Rejection", value: "100%", color: "text-rose-600 dark:text-rose-400" }
       ]
@@ -127,7 +127,7 @@ export function ProcessWorkflow() {
       id: 3,
       title: "Escrow Payout & Live Analytics",
       subtitle: "Autonomous Smart Settlement",
-      badge: "Stage 04 • Settlement",
+      badge: "Stage 04 â€¢ Settlement",
       icon: <Coins className="w-5 h-5" />,
       duration: "Instant (< 5s)",
       summary: "Submissions passing the AI QC score threshold trigger instant automated escrow disbursement to the shopper's digital wallet. Executive dashboards update live with planogram compliance benchmarks and actionable store alerts.",
@@ -138,7 +138,7 @@ export function ProcessWorkflow() {
         "Direct export to Snowflake, PowerBI, BigQuery, or CSV"
       ],
       metrics: [
-        { label: "Payout Latency", value: "< 5 Sec", color: "text-indigo-600 dark:text-indigo-400" },
+        { label: "Payout Latency", value: "< 5 Sec", color: "text-blue-600 dark:text-blue-400" },
         { label: "Shopper Retention", value: "92.4%", color: "text-emerald-600 dark:text-emerald-400" },
         { label: "Dispute Rate", value: "< 0.08%", color: "text-cyan-600 dark:text-cyan-400" }
       ]
@@ -171,21 +171,21 @@ export function ProcessWorkflow() {
     <section id="process" className="py-28 border-t border-slate-200 dark:border-slate-800/60 bg-transparent relative overflow-hidden">
       
       {/* Background Ambient Glows */}
-      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-indigo-500/10 blur-[150px] pointer-events-none rounded-full" />
+      <div className="absolute top-1/3 left-1/4 w-[500px] h-[500px] bg-blue-500/10 blur-[150px] pointer-events-none rounded-full" />
       <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-cyan-500/10 blur-[150px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4 shadow-sm">
-            <Zap className="w-4 h-4 text-indigo-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4 shadow-sm">
+            <Zap className="w-4 h-4 text-blue-500 animate-pulse" />
             <span>Interactive Workflow Engine</span>
           </div>
 
           <h2 className="font-heading text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
             How The Autonomous <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 dark:from-indigo-400 dark:via-purple-400 dark:to-cyan-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-orange-500 to-cyan-500 dark:from-blue-400 dark:via-orange-400 dark:to-cyan-400">
               Audit Process Works
             </span>
           </h2>
@@ -216,7 +216,7 @@ export function ProcessWorkflow() {
             
             <button
               onClick={() => { setActiveStep(0); setProgress(0); }}
-              className="p-2 rounded-xl text-xs border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-850 text-slate-500 dark:text-slate-400 hover:text-indigo-600 transition-all shadow-sm"
+              className="p-2 rounded-xl text-xs border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-850 text-slate-500 dark:text-slate-400 hover:text-blue-600 transition-all shadow-sm"
               title="Restart from Step 1"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -236,19 +236,19 @@ export function ProcessWorkflow() {
                 onClick={() => handleStepClick(idx)}
                 className={`relative text-left p-4 sm:p-5 rounded-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden group ${
                   isActive
-                    ? "border-indigo-500/80 bg-white dark:bg-slate-900/90 shadow-xl shadow-indigo-500/10 scale-[1.02]"
+                    ? "border-blue-500/80 bg-white dark:bg-slate-900/90 shadow-xl shadow-blue-500/10 scale-[1.02]"
                     : "border-slate-200 dark:border-slate-800/80 bg-white/60 dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-white dark:hover:bg-slate-900/70"
                 }`}
               >
                 {/* Active Step Top Accent Line */}
                 {isActive && (
-                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-cyan-400" />
+                  <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-orange-500 to-cyan-400" />
                 )}
 
                 {/* Progress bar inside active step */}
                 {isActive && isPlaying && (
                   <div 
-                    className="absolute bottom-0 left-0 h-0.5 bg-indigo-500 dark:bg-indigo-400 transition-all duration-100"
+                    className="absolute bottom-0 left-0 h-0.5 bg-blue-500 dark:bg-blue-400 transition-all duration-100"
                     style={{ width: `${progress}%` }}
                   />
                 )}
@@ -256,7 +256,7 @@ export function ProcessWorkflow() {
                 <div className="flex items-center justify-between mb-3">
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-black text-sm transition-all ${
                     isActive 
-                      ? "bg-indigo-600 !text-white shadow-md shadow-indigo-600/30 scale-110" 
+                      ? "bg-blue-600 !text-white shadow-md shadow-blue-600/30 scale-110" 
                       : isCompleted
                       ? "bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
@@ -266,7 +266,7 @@ export function ProcessWorkflow() {
 
                   <span className={`text-[11px] font-mono font-bold px-2 py-0.5 rounded-md ${
                     isActive 
-                      ? "bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300"
+                      ? "bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300"
                       : "text-slate-400 dark:text-slate-500"
                   }`}>
                     0{idx + 1}
@@ -304,7 +304,7 @@ export function ProcessWorkflow() {
               <div className="lg:col-span-6 space-y-6">
                 
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-mono font-bold uppercase px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30">
+                  <span className="text-xs font-mono font-bold uppercase px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30">
                     {steps[activeStep].badge}
                   </span>
                   <span className="text-xs font-mono text-slate-500 flex items-center gap-1.5">
@@ -348,7 +348,7 @@ export function ProcessWorkflow() {
                 <div className="pt-2 flex items-center gap-4">
                   <Link
                     href="/client"
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 !text-white font-heading font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-indigo-600/25"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 !text-white font-heading font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-blue-600/25"
                   >
                     <span>Launch Campaign in Studio</span>
                     <ArrowRight className="w-4 h-4 !text-white" />
@@ -356,7 +356,7 @@ export function ProcessWorkflow() {
 
                   <button
                     onClick={() => handleStepClick((activeStep + 1) % steps.length)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
                     <span>Next Stage</span>
                     <ChevronRight className="w-4 h-4" />
@@ -371,25 +371,61 @@ export function ProcessWorkflow() {
                 {/* STEP 0: AI Brief Parser Simulation */}
                 {activeStep === 0 && (
                   <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-950 p-6 text-slate-300 font-mono text-xs shadow-2xl relative overflow-hidden">
-                    <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+                    <div className="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
                       <div className="flex items-center gap-2">
                         <span className="w-3 h-3 rounded-full bg-rose-500 inline-block" />
                         <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
                         <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
                         <span className="text-[11px] text-slate-400 font-sans font-bold ml-2">Brief_Ingestion_Engine.py</span>
                       </div>
-                      <span className="text-emerald-400 text-[10px] bg-emerald-950/80 border border-emerald-800 px-2 py-0.5 rounded">
-                        ● LIVE STREAMING
+                      <span className="text-emerald-400 text-[10px] bg-emerald-950/80 border border-emerald-800 px-2 py-0.5 rounded font-mono">
+                        â— LIVE STREAMING
                       </span>
+                    </div>
+
+                    {/* Visual Planogram & Retail Guideline Ingestion Picture Viewfinder */}
+                    <div className="relative aspect-video max-h-[190px] w-full rounded-xl bg-slate-900 overflow-hidden border border-slate-800 mb-4 group">
+                      <img
+                        src="https://images.unsplash.com/photo-1583258292688-d0213dc5a3a8?auto=format&fit=crop&w=1000&q=80"
+                        alt="AI Retail Planogram & Beverage Cooler Shelf Setup"
+                        className="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+
+                      {/* Scanning Laser Beam */}
+                      <div className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-[0_0_20px_#818cf8] animate-scan-laser pointer-events-none z-20" />
+
+                      {/* Document Ingestion Badge */}
+                      <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/90 border border-blue-500/50 text-[10px] text-blue-300 backdrop-blur-md z-10 shadow-lg">
+                        <FileCode className="w-3.5 h-3.5 text-blue-400" />
+                        <span className="font-bold">Campaign_Brief_Q3.pdf (100% Ingested)</span>
+                      </div>
+
+                      {/* OCR Confidence Badge */}
+                      <div className="absolute top-2.5 right-2.5 flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-950/90 border border-emerald-500/50 text-[10px] text-emerald-300 font-mono backdrop-blur-md z-10 shadow-lg">
+                        <Check className="w-3 h-3" />
+                        <span>OCR 99.8%</span>
+                      </div>
+
+                      {/* Live Shelf Planogram Tag Overlays */}
+                      <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between text-[10px] z-10">
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-950/90 border border-slate-700 text-slate-200 backdrop-blur-md shadow-md">
+                          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                          <span className="font-mono font-bold text-cyan-300">Planogram: 12 Cooler SKUs</span>
+                        </div>
+                        <div className="px-2.5 py-1 rounded-lg bg-blue-950/90 border border-blue-500/40 text-blue-200 font-mono font-bold backdrop-blur-md shadow-md">
+                          Geofence: 150m Strict GPS Lock
+                        </div>
+                      </div>
                     </div>
 
                     <div className="space-y-3">
                       <div className="text-slate-400">
-                        <span className="text-indigo-400 font-bold">$ pulseai parse</span> --source "Campaign_Brief_Q3.pdf" --extract-rules
+                        <span className="text-blue-400 font-bold">$ pulseai parse</span> --source "Campaign_Brief_Q3.pdf" --extract-rules
                       </div>
 
                       <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 text-[11px] space-y-1 text-slate-300">
-                        <div className="text-cyan-400 font-bold">✓ Campaign Title Extracted:</div>
+                        <div className="text-cyan-400 font-bold">âœ“ Campaign Title Extracted:</div>
                         <div className="text-white">"Beverage Category Share-of-Shelf &amp; Cooler Audit"</div>
                         <div className="text-slate-400 mt-2">Target Locations: <span className="text-emerald-400 font-bold">350 Supermarkets</span></div>
                         <div className="text-slate-400">Geofence Radius: <span className="text-emerald-400 font-bold">150m strict GPS lock</span></div>
@@ -397,8 +433,8 @@ export function ProcessWorkflow() {
                       </div>
 
                       <div className="grid grid-cols-2 gap-2 text-[10px]">
-                        <div className="p-2.5 rounded-lg bg-indigo-950/50 border border-indigo-900/60 flex items-center justify-between">
-                          <span className="text-indigo-300">Escrow Reserved:</span>
+                        <div className="p-2.5 rounded-lg bg-blue-950/50 border border-blue-900/60 flex items-center justify-between">
+                          <span className="text-blue-300">Escrow Reserved:</span>
                           <span className="text-white font-bold">$15,750 USD</span>
                         </div>
                         <div className="p-2.5 rounded-lg bg-emerald-950/50 border border-emerald-900/60 flex items-center justify-between">
@@ -408,7 +444,7 @@ export function ProcessWorkflow() {
                       </div>
 
                       <div className="flex items-center gap-2 text-slate-400 text-[11px] pt-1">
-                        <Cpu className="w-4 h-4 text-indigo-400 animate-spin" style={{ animationDuration: "5s" }} />
+                        <Cpu className="w-4 h-4 text-blue-400 animate-spin" style={{ animationDuration: "5s" }} />
                         <span>Generating planogram embeddings &amp; dispatch beacons...</span>
                       </div>
                     </div>
@@ -430,22 +466,28 @@ export function ProcessWorkflow() {
 
                     {/* Radar Screen Visual */}
                     <div className="relative aspect-video max-h-[250px] w-full rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-center overflow-hidden">
+                      {/* Satellite City Aerial Map Background */}
+                      <img
+                        src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80"
+                        alt="City Dispatch Map"
+                        className="absolute inset-0 w-full h-full object-cover opacity-25"
+                      />
                       {/* Concentric Radar Rings */}
-                      <div className="absolute w-48 h-48 rounded-full border border-indigo-500/20" />
-                      <div className="absolute w-32 h-32 rounded-full border border-indigo-500/30" />
-                      <div className="absolute w-16 h-16 rounded-full border border-indigo-500/40" />
+                      <div className="absolute w-48 h-48 rounded-full border border-blue-500/20" />
+                      <div className="absolute w-32 h-32 rounded-full border border-blue-500/30" />
+                      <div className="absolute w-16 h-16 rounded-full border border-blue-500/40" />
                       
                       {/* Crosshairs */}
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                        <div className="w-full h-[1px] bg-indigo-500/10" />
-                        <div className="h-full w-[1px] bg-indigo-500/10" />
+                        <div className="w-full h-[1px] bg-blue-500/10" />
+                        <div className="h-full w-[1px] bg-blue-500/10" />
                       </div>
 
                       {/* Rotating Radar Sweep */}
                       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-transparent to-emerald-500/20 rounded-full animate-spin pointer-events-none" style={{ animationDuration: "3s" }} />
 
                       {/* Target Retail Store Center Pin */}
-                      <div className="relative z-10 p-2 rounded-full bg-indigo-600 text-white shadow-lg shadow-indigo-600/50 flex items-center justify-center">
+                      <div className="relative z-10 p-2 rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/50 flex items-center justify-center">
                         <MapPin className="w-4 h-4" />
                       </div>
 
@@ -469,7 +511,7 @@ export function ProcessWorkflow() {
 
                     <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
                       <span className="text-slate-400">Hardware GPS Accuracy:</span>
-                      <span className="text-emerald-400 font-bold">±1.8m (Exif Anti-Spoof Locked)</span>
+                      <span className="text-emerald-400 font-bold">Â±1.8m (Exif Anti-Spoof Locked)</span>
                     </div>
                   </div>
                 )}
@@ -526,7 +568,7 @@ export function ProcessWorkflow() {
                       </div>
                       <div className="p-2.5 rounded-lg bg-slate-900 border border-slate-800 flex justify-between">
                         <span className="text-slate-400">OCR Tag Price:</span>
-                        <span className="text-white font-bold">$4.99 ✓ Verified</span>
+                        <span className="text-white font-bold">$4.99 âœ“ Verified</span>
                       </div>
                     </div>
                   </div>
@@ -563,7 +605,7 @@ export function ProcessWorkflow() {
                         </div>
                         <div className="flex justify-between">
                           <span className="text-slate-400">Settlement Protocol:</span>
-                          <span className="text-indigo-300">PulseAI Smart Escrow #TX-8921</span>
+                          <span className="text-blue-300">PulseAI Smart Escrow #TX-8921</span>
                         </div>
                       </div>
 
@@ -593,7 +635,7 @@ export function ProcessWorkflow() {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200 dark:border-slate-800">
             <div>
               <div className="flex items-center gap-2.5">
-                <ShieldCheck className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+                <ShieldCheck className="w-5 h-5 text-blue-600 dark:text-blue-400" />
                 <h3 className="font-heading font-black text-lg sm:text-xl text-slate-900 dark:text-white">
                   Interactive SOP &amp; Quality Check-Gate Runner
                 </h3>
@@ -632,7 +674,7 @@ export function ProcessWorkflow() {
                 <div className={`w-5 h-5 rounded-lg flex items-center justify-center shrink-0 mt-0.5 transition-all ${
                   item.completed 
                     ? "bg-emerald-600 text-white scale-110 shadow-sm shadow-emerald-600/30" 
-                    : "border border-slate-300 dark:border-slate-600 group-hover:border-indigo-500"
+                    : "border border-slate-300 dark:border-slate-600 group-hover:border-blue-500"
                 }`}>
                   {item.completed && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                 </div>
@@ -657,3 +699,5 @@ export function ProcessWorkflow() {
     </section>
   );
 }
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
@@ -23,11 +23,11 @@ export function EnterpriseArchitecture() {
   const layers = [
     {
       id: 0,
-      name: "Layer 01 • Cryptographic Edge Field Mesh",
+      name: "Layer 01 â€¢ Cryptographic Edge Field Mesh",
       subtitle: "Hardware-Locked Mobile Verification",
-      icon: <Lock className="w-5 h-5 text-indigo-500" />,
+      icon: <Lock className="w-5 h-5 text-blue-500" />,
       features: [
-        "Hardware-level GPS coordinate fence (±1.8m accuracy enforcement)",
+        "Hardware-level GPS coordinate fence (Â±1.8m accuracy enforcement)",
         "Tamper-proof EXIF sensor hashing (gyroscope, tilt & timestamp locking)",
         "Biometric facial KYC authentication prior to store check-in",
         "Offline-first store caching with end-to-end AES-256 payload encryption"
@@ -42,7 +42,7 @@ await EscrowMesh.verifyGeofenceGate(hardwareSignature);`
     },
     {
       id: 1,
-      name: "Layer 02 • Distributed Computer Vision Cluster",
+      name: "Layer 02 â€¢ Distributed Computer Vision Cluster",
       subtitle: "Sub-Second Multi-Modal Inference",
       icon: <Cpu className="w-5 h-5 text-cyan-500" />,
       features: [
@@ -61,7 +61,7 @@ const cvResults = await YOLOv8Cluster.inferShelfImage(stream, {
     },
     {
       id: 2,
-      name: "Layer 03 • Autonomous Smart Escrow Settlement",
+      name: "Layer 03 â€¢ Autonomous Smart Escrow Settlement",
       subtitle: "Instant Micro-Disbursement Protocol",
       icon: <ShieldCheck className="w-5 h-5 text-emerald-500" />,
       features: [
@@ -81,9 +81,9 @@ if (audit.overall_qc_score >= 90.0 && audit.fraud_score < 0.05) {
     },
     {
       id: 3,
-      name: "Layer 04 • Enterprise Data Warehouse Connectors",
+      name: "Layer 04 â€¢ Enterprise Data Warehouse Connectors",
       subtitle: "Bi-Directional ERP & Lakehouse Sync",
-      icon: <Database className="w-5 h-5 text-purple-500" />,
+      icon: <Database className="w-5 h-5 text-orange-500" />,
       features: [
         "Real-time streaming integration with Snowflake & Google BigQuery",
         "Automated push alerts to SAP, Oracle Retail & Salesforce Field Service",
@@ -119,14 +119,14 @@ await SnowflakeConnector.streamTableInsert({
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4 shadow-sm">
-            <Network className="w-4 h-4 text-indigo-500" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4 shadow-sm">
+            <Network className="w-4 h-4 text-blue-500" />
             <span>Mission-Critical Infrastructure</span>
           </div>
 
           <h2 className="font-heading text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
             Enterprise Security &amp; <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 dark:from-indigo-400 dark:via-purple-400 dark:to-cyan-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-orange-500 to-cyan-500 dark:from-blue-400 dark:via-orange-400 dark:to-cyan-400">
               System Architecture
             </span>
           </h2>
@@ -149,7 +149,7 @@ await SnowflakeConnector.streamTableInsert({
                   onClick={() => setActiveLayer(idx)}
                   className={`p-5 rounded-2xl border transition-all cursor-pointer ${
                     isSelected
-                      ? "border-indigo-500 bg-white dark:bg-slate-900 shadow-xl shadow-indigo-500/10 ring-1 ring-indigo-500"
+                      ? "border-blue-500 bg-white dark:bg-slate-900 shadow-xl shadow-blue-500/10 ring-1 ring-blue-500"
                       : "border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40 hover:border-slate-300 dark:hover:border-slate-700"
                   }`}
                 >
@@ -157,7 +157,7 @@ await SnowflakeConnector.streamTableInsert({
                     <div className="flex items-center gap-3">
                       <div className={`p-2 rounded-xl ${
                         isSelected 
-                          ? "bg-indigo-600 text-white" 
+                          ? "bg-blue-600 text-white" 
                           : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400"
                       }`}>
                         {layer.icon}
@@ -201,10 +201,10 @@ await SnowflakeConnector.streamTableInsert({
                   <span className="w-3 h-3 rounded-full bg-amber-500 inline-block" />
                   <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
                   <span className="text-[11px] text-slate-400 font-sans font-bold ml-2">
-                    {layers[activeLayer].name.split("•")[1]?.trim() || "Architecture_Spec.ts"}
+                    {layers[activeLayer].name.split("â€¢")[1]?.trim() || "Architecture_Spec.ts"}
                   </span>
                 </div>
-                <span className="text-indigo-400 text-[10px] bg-indigo-950/80 border border-indigo-800 px-2.5 py-0.5 rounded">
+                <span className="text-blue-400 text-[10px] bg-blue-950/80 border border-blue-800 px-2.5 py-0.5 rounded">
                   AES-256 ENCRYPTED
                 </span>
               </div>
@@ -223,7 +223,7 @@ await SnowflakeConnector.streamTableInsert({
                 <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
                   <span className="text-slate-400 block">API Docs Available:</span>
                   <a href="http://localhost:8000/docs" target="_blank" className="text-cyan-400 hover:underline font-bold text-xs mt-0.5 block">
-                    FastAPI OpenAPI Spec ↗
+                    FastAPI OpenAPI Spec â†—
                   </a>
                 </div>
               </div>
@@ -264,8 +264,8 @@ await SnowflakeConnector.streamTableInsert({
                   </div>
                 </div>
                 <div className="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800/60">
-                  <span className="text-[9px] font-mono text-indigo-600 dark:text-indigo-400 font-bold">
-                    ✓ {integ.status}
+                  <span className="text-[9px] font-mono text-blue-600 dark:text-blue-400 font-bold">
+                    âœ“ {integ.status}
                   </span>
                 </div>
               </div>
@@ -277,3 +277,5 @@ await SnowflakeConnector.streamTableInsert({
     </section>
   );
 }
+
+

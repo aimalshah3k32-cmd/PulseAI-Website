@@ -1,55 +1,51 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import {
-  Globe2,
   Mail,
-  ArrowRight,
   Sparkles,
   ShieldCheck,
   Building2,
   Smartphone,
-  Zap,
-  Award,
   Terminal,
   MapPin,
   Phone,
-  ExternalLink,
   Heart,
   Send,
+  ArrowUpRight,
+  ChevronUp,
+  FileText,
 } from "lucide-react";
 
 const footerLinks = {
-  company: [
-    { label: "About PulseAI", href: "/#about" },
-    { label: "How It Works", href: "/process" },
-    { label: "Case Studies", href: "/case-studies" },
-    { label: "ROI Calculator", href: "/#roi" },
-    { label: "Careers", href: "#" },
-  ],
-  platform: [
-    { label: "Client Studio", href: "/client", icon: <Building2 className="w-3 h-3" /> },
-    { label: "Shopper PWA", href: "/shopper", icon: <Smartphone className="w-3 h-3" /> },
-    { label: "AI QC Command", href: "/admin", icon: <ShieldCheck className="w-3 h-3" /> },
-    { label: "RFP Builder", href: "/pilot-builder", icon: <Sparkles className="w-3 h-3" /> },
-    { label: "API Console", href: "/api-docs", icon: <Terminal className="w-3 h-3" /> },
+  solutions: [
+    { label: "Mystery Shopping", href: "/process" },
+    { label: "Retail Audits", href: "/process" },
+    { label: "AI Quality Control", href: "/admin" },
+    { label: "Planogram Verification", href: "/process" },
+    { label: "Field Work Services", href: "/shopper" },
+    { label: "Analytics & Reporting", href: "/case-studies" },
   ],
   resources: [
+    { label: "All Resources", href: "#" },
+    { label: "Knowledge Base", href: "#" },
     { label: "Documentation", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "GDPR Compliance", href: "#" },
+    { label: "API Console", href: "/api-docs" },
     { label: "MSPA Standards", href: "#" },
+  ],
+  company: [
+    { label: "About Us", href: "/#about" },
+    { label: "How It Works", href: "/process" },
+    { label: "Case Studies", href: "/case-studies" },
+    { label: "Careers", href: "#" },
   ],
 };
 
 const socialLinks = [
-  { label: "LinkedIn", href: "#", icon: "in" },
+  { label: "Facebook", href: "#", icon: "f" },
   { label: "Twitter", href: "#", icon: "𝕏" },
-  { label: "GitHub", href: "#", icon: "GH" },
-  { label: "YouTube", href: "#", icon: "YT" },
+  { label: "LinkedIn", href: "#", icon: "in" },
 ];
 
 export function Footer() {
@@ -65,223 +61,235 @@ export function Footer() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <footer className="relative border-t border-slate-200 dark:border-slate-800/80 bg-white dark:bg-slate-950 overflow-hidden">
-      {/* Animated Gradient Divider Line */}
-      <div className="absolute top-0 left-0 right-0 h-px">
-        <div
-          className="h-full w-full bg-gradient-to-r from-transparent via-indigo-500 to-transparent"
-          style={{
-            backgroundSize: "200% 100%",
-            animation: "gradientShimmer 4s linear infinite",
-          }}
-        />
-      </div>
+    <footer className="relative overflow-hidden">
 
-      {/* Ambient Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-t from-indigo-500/5 via-purple-500/3 to-transparent blur-[120px] pointer-events-none" />
+      {/* ================================================================
+          TOP CTA BAND — "Are you ready to get started?"
+          ================================================================ */}
+      <div className="bg-blue-600 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 py-16 sm:py-20 relative z-10">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+            {/* Left: CTA Text */}
+            <div>
+              <h2 className="text-3xl sm:text-4xl lg:text-[42px] font-bold text-white leading-tight mb-3">
+                Are you ready to get started?
+              </h2>
+              <p className="text-blue-100 text-sm sm:text-base max-w-lg leading-relaxed">
+                Reach out today, and we'll discuss how to elevate your customer experience — together.
+              </p>
 
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-8 relative z-10">
-        {/* Top Section: Brand + Newsletter */}
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-10 mb-14">
-          {/* Brand */}
-          <div className="max-w-sm">
-            <Link href="/" className="flex items-center gap-2.5 group mb-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center font-black text-white shadow-lg shadow-indigo-500/25 group-hover:scale-105 transition-transform text-sm">
-                P
+              <div className="flex flex-wrap items-center gap-3 mt-8">
+                <Link
+                  href="/#contact"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-white text-white font-semibold text-sm hover:bg-white hover:text-blue-600 transition-all"
+                >
+                  Contact us
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
+                <Link
+                  href="/case-studies"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border-2 border-white/40 text-white font-semibold text-sm hover:bg-white/10 transition-all"
+                >
+                  <FileText className="w-4 h-4" />
+                  Case Studies
+                </Link>
               </div>
-              <div>
-                <span className="font-black text-lg tracking-tight text-slate-900 dark:text-white flex items-center gap-1.5 font-heading">
-                  Pulse<span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-cyan-500 dark:from-indigo-400 dark:to-cyan-400">AI</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                </span>
-                <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest block -mt-0.5">
-                  Enterprise Field Intelligence
-                </span>
-              </div>
-            </Link>
-            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
-              The world&apos;s most advanced AI-powered mystery shopping and retail audit platform. Trusted by leading brands across 50+ markets.
-            </p>
+            </div>
 
-            {/* Live Status */}
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-              </span>
-              SYSTEM ONLINE — 52 GLOBAL NODES ACTIVE
+            {/* Right: Logo + Social */}
+            <div className="flex flex-col items-start lg:items-end gap-5">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 rounded-md bg-white flex items-center justify-center font-bold text-blue-600 text-lg">
+                  P
+                </div>
+                <span className="font-bold text-2xl text-white tracking-tight">PulseAI</span>
+              </div>
+              <div className="flex items-center gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center text-white text-sm font-bold transition-colors"
+                    title={social.label}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
+        </div>
+      </div>
 
-          {/* Newsletter */}
-          <div className="max-w-md w-full">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2 font-heading uppercase tracking-wider">
-              Stay Informed
-            </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
-              Get enterprise CX intelligence insights, platform updates, and audit methodology whitepapers.
-            </p>
-            <form onSubmit={handleSubscribe} className="flex gap-2">
-              <div className="flex-1 relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your work email"
-                  className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
-                />
-              </div>
-              <motion.button
-                type="submit"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-5 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-bold text-sm shadow-lg shadow-indigo-600/25 flex items-center gap-2 transition-all whitespace-nowrap"
-              >
-                {subscribed ? (
-                  <>
-                    <Sparkles className="w-4 h-4" />
-                    <span>Subscribed!</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" />
-                    <span>Subscribe</span>
-                  </>
-                )}
-              </motion.button>
-            </form>
+      {/* ================================================================
+          MAIN FOOTER BODY — Dark blue with columns & watermark
+          ================================================================ */}
+      <div className="bg-blue-700 relative overflow-hidden">
+
+        {/* Giant watermark "PULSE AI" in background */}
+        <div
+          className="absolute bottom-0 left-0 right-0 flex items-end justify-center pointer-events-none select-none overflow-hidden"
+          aria-hidden="true"
+        >
+          <span className="text-[12vw] sm:text-[10vw] lg:text-[9vw] font-black text-white/[0.06] tracking-widest leading-none whitespace-nowrap pb-4">
+            PULSE AI
+          </span>
+        </div>
+
+        {/* Divider line + Language/Back to top */}
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="flex items-center justify-end gap-6 py-4 border-b border-white/10">
+            <span className="text-white/60 text-xs flex items-center gap-1.5">
+              🌐 EN
+            </span>
+            <button
+              onClick={scrollToTop}
+              className="text-white/60 hover:text-white text-xs flex items-center gap-1 transition-colors cursor-pointer"
+            >
+              Back to top
+              <ChevronUp className="w-3.5 h-3.5" />
+            </button>
           </div>
         </div>
 
-        {/* 4-Column Links */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">
-          {/* Company */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-heading">
-              Company
-            </h4>
-            <ul className="space-y-2.5">
-              {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1.5 group"
-                  >
-                    <span className="w-0 h-px bg-indigo-500 group-hover:w-3 transition-all duration-300" />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* Footer Columns */}
+        <div className="max-w-7xl mx-auto px-6 py-12 sm:py-16 relative z-10">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-10 lg:gap-8">
 
-          {/* Platform */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-heading">
-              Platform
-            </h4>
-            <ul className="space-y-2.5">
-              {footerLinks.platform.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 group"
-                  >
-                    {link.icon && (
-                      <span className="text-slate-400 group-hover:text-indigo-500 transition-colors">
-                        {link.icon}
-                      </span>
-                    )}
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-heading">
-              Resources
-            </h4>
-            <ul className="space-y-2.5">
-              {footerLinks.resources.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-1.5 group"
-                  >
-                    <span className="w-0 h-px bg-indigo-500 group-hover:w-3 transition-all duration-300" />
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Connect */}
-          <div>
-            <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-widest mb-4 font-heading">
-              Connect
-            </h4>
-            <div className="space-y-3 mb-5">
-              <a
-                href="mailto:hello@pulseai.io"
-                className="text-sm text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                hello@pulseai.io
-              </a>
-              <span className="text-sm text-slate-600 dark:text-slate-400 flex items-center gap-2">
-                <MapPin className="w-3.5 h-3.5" />
-                Dubai · London · Lahore
-              </span>
+            {/* Column 1: Main Office */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4">
+                PulseAI HQ
+              </h4>
+              <div className="space-y-2 text-blue-200 text-sm leading-relaxed">
+                <p>Dubai Internet City</p>
+                <p>Building 1, Office 302</p>
+                <p>Dubai, UAE</p>
+              </div>
+              <div className="mt-4 space-y-2">
+                <a href="tel:+971544780113" className="text-blue-200 hover:text-white text-sm flex items-center gap-2 transition-colors">
+                  <Phone className="w-3.5 h-3.5" />
+                  +971 54 478 0113
+                </a>
+                <a href="mailto:hello@pulseai.io" className="text-blue-200 hover:text-white text-sm flex items-center gap-2 transition-colors">
+                  <Mail className="w-3.5 h-3.5" />
+                  hello@pulseai.io
+                </a>
+              </div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex items-center gap-2">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  whileHover={{ scale: 1.15, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500/50 hover:bg-indigo-50 dark:hover:bg-indigo-950/50 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all shadow-sm"
-                  title={social.label}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
+            {/* Column 2: Regional Offices */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4">
+                Regional Offices
+              </h4>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-white/80 font-semibold text-sm">London</p>
+                  <p className="text-blue-200 text-sm">United Kingdom</p>
+                </div>
+                <div>
+                  <p className="text-white/80 font-semibold text-sm">Lahore</p>
+                  <p className="text-blue-200 text-sm">Pakistan</p>
+                </div>
+              </div>
             </div>
+
+            {/* Column 3: Solutions */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4">
+                Solutions
+              </h4>
+              <ul className="space-y-2.5">
+                {footerLinks.solutions.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-blue-200 hover:text-white text-sm transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 4: Resources */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4">
+                Resources
+              </h4>
+              <ul className="space-y-2.5">
+                {footerLinks.resources.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-blue-200 hover:text-white text-sm transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 5: Company */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4">
+                Company
+              </h4>
+              <ul className="space-y-2.5">
+                {footerLinks.company.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-blue-200 hover:text-white text-sm transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 6: Who We Work With */}
+            <div>
+              <h4 className="text-white font-bold text-sm mb-4">
+                Who We Work With
+              </h4>
+              <ul className="space-y-2.5">
+                {["Unilever", "Nestlé Global", "L'Oréal Luxe", "Carrefour Group", "Sephora", "Coca-Cola"].map((brand) => (
+                  <li key={brand}>
+                    <span className="text-blue-200 text-sm">
+                      {brand}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 border-t border-slate-100 dark:border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-slate-400 flex items-center gap-1.5">
-            © 2026 PulseAI Enterprise. Built with
-            <motion.span
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            >
-              <Heart className="w-3 h-3 text-rose-500 inline-block" />
-            </motion.span>
-            for global field intelligence.
-          </div>
-
-          <div className="flex items-center gap-4 text-xs text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
-              SOC 2 · ISO 27001
-            </span>
-            <span className="flex items-center gap-1.5">
-              <Globe2 className="w-3.5 h-3.5 text-indigo-500" />
-              GDPR Compliant
-            </span>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
+          <div className="py-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-blue-300/60 text-xs">
+              © 2026 PulseAI Enterprise. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6 text-xs text-blue-300/60">
+              <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
+              <Link href="#" className="hover:text-white transition-colors">GDPR</Link>
+            </div>
           </div>
         </div>
+
       </div>
     </footer>
   );

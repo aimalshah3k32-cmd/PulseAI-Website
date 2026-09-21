@@ -54,6 +54,7 @@ CREATE TABLE dbo.client_profiles (
     city NVARCHAR(100) NULL DEFAULT 'Dubai, UAE',
     country NVARCHAR(100) NULL DEFAULT 'Global',
     designation NVARCHAR(100) NULL DEFAULT 'Enterprise Executive',
+    website_url NVARCHAR(255) NULL,
     billing_address NVARCHAR(MAX) NULL,
     tax_id NVARCHAR(100) NULL,
     total_spent FLOAT NOT NULL DEFAULT 0.0,
@@ -243,23 +244,23 @@ GO
 -- SEED INITIAL ENTERPRISE DATA
 -- ====================================================================
 
--- Seed Admin
+-- Seed Admin (Password: admin123)
 INSERT INTO dbo.users (id, email, password_hash, full_name, phone, role, is_verified, status)
-VALUES ('u-admin-01', 'admin@pulseai.io', '$2b$12$eXampleHashedPassword1234567890123456789012', 'Alex Vance (Chief QC Officer)', '+1 800 555 0199', 'super_admin', 1, 'active');
+VALUES ('u-admin-01', 'admin@pulseai.io', '7710009d29e4301ae273cbc9e1b4220bae54197788c884e620305156cb9bd5c9', 'Alex Vance (Chief QC Officer)', '+1 800 555 0199', 'super_admin', 1, 'active');
 
--- Seed Client User & Profile
+-- Seed Client User & Profile (Password: client123)
 INSERT INTO dbo.users (id, email, password_hash, full_name, phone, role, is_verified, status)
-VALUES ('u-client-01', 'client@unilever-cpg.com', '$2b$12$eXampleHashedPassword1234567890123456789012', 'Sarah Jenkins', '+1 212 555 0142', 'client', 1, 'active');
+VALUES ('u-client-01', 'client@unilever-cpg.com', '36959fa3cae3908fbbaee391c2168a852a3c9e75f5178e4165b4b34722ec2a29', 'Sarah Jenkins', '+1 212 555 0142', 'client', 1, 'active');
 
 INSERT INTO dbo.client_profiles (id, user_id, company_name, industry, service_needed, store_count, city, country, designation, billing_address, total_spent)
 VALUES ('cp-01', 'u-client-01', 'Unilever Consumer Brands', 'Retail & FMCG', 'Retail Shelf Planogram & Computer Vision (CV) Audits', '150 stores', 'Dubai, UAE', 'United Arab Emirates', 'Regional Quality Director', '100 Madison Ave, New York, NY', 12500.0);
 
--- Seed Shopper Users & Profiles
+-- Seed Shopper Users & Profiles (Password: shopper123)
 INSERT INTO dbo.users (id, email, password_hash, full_name, phone, role, is_verified, status)
 VALUES 
-('u-shopper-01', 'tariq.mansoor@fieldforce.ae', '$2b$12$eXampleHashedPassword1234567890123456789012', 'Tariq Mansoor', '+971 50 123 4567', 'shopper', 1, 'active'),
-('u-shopper-02', 'marcus.sterling@shopper.io', '$2b$12$eXampleHashedPassword1234567890123456789012', 'Marcus Sterling', '+1 917 555 0188', 'shopper', 1, 'active'),
-('u-shopper-03', 'elena.rostova@shopper.io', '$2b$12$eXampleHashedPassword1234567890123456789012', 'Elena Rostova', '+44 20 7946 0912', 'shopper', 1, 'active');
+('u-shopper-01', 'tariq@shopper.pulseai.io', '3bcc21959b121cf2175b896fac3b87a49cd82d88208db8d41d821b303602c518', 'Tariq Mansoor', '+971 50 123 4567', 'shopper', 1, 'active'),
+('u-shopper-02', 'marcus.sterling@shopper.io', '3bcc21959b121cf2175b896fac3b87a49cd82d88208db8d41d821b303602c518', 'Marcus Sterling', '+1 917 555 0188', 'shopper', 1, 'active'),
+('u-shopper-03', 'elena.rostova@shopper.io', '3bcc21959b121cf2175b896fac3b87a49cd82d88208db8d41d821b303602c518', 'Elena Rostova', '+44 20 7946 0912', 'shopper', 1, 'active');
 
 INSERT INTO dbo.shopper_profiles (id, user_id, city, country, gender, payout_method, trust_score, is_available, kyc_status, balance_earned, completed_audits_count)
 VALUES

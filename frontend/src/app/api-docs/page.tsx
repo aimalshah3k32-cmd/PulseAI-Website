@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -73,7 +73,7 @@ export default function ApiDocsPlayground() {
       path: "/health",
       title: "System Health & Pipeline Check",
       description: "Verifies the status of the FastAPI engine, active database connection, and AI vision inference services.",
-      flowStep: "Infrastructure Heartbeat • Confirms DB & AI readiness",
+      flowStep: "Infrastructure Heartbeat â€¢ Confirms DB & AI readiness",
       dbAction: "SELECT 1 (Engine Connection Test)",
       dbTable: "Database Connection Pool",
       sampleResponse: {
@@ -90,7 +90,7 @@ export default function ApiDocsPlayground() {
       path: "/projects/parse-brief",
       title: "AI Natural Language Brief Parser",
       description: "Sends an unformatted text or voice brief. LLM extracts planogram rules, target stores, and budget allocations in < 3.5s.",
-      flowStep: "Phase 1 • Client Campaign Briefing",
+      flowStep: "Phase 1 â€¢ Client Campaign Briefing",
       dbAction: "Memory-Only AI Extraction (Pre-Storage Preview)",
       dbTable: "Staging Schema (Uncommitted)",
       defaultBody: {
@@ -116,7 +116,7 @@ export default function ApiDocsPlayground() {
       path: "/projects",
       title: "List Active Enterprise Campaigns",
       description: "Returns all deployed campaigns with quota progress, target stores count, and reserved escrow balances.",
-      flowStep: "Phase 1 • Campaign Directory & Quota Monitoring",
+      flowStep: "Phase 1 â€¢ Campaign Directory & Quota Monitoring",
       dbAction: "SELECT * FROM projects WHERE status = 'active'",
       dbTable: "projects",
       sampleResponse: [
@@ -149,7 +149,7 @@ export default function ApiDocsPlayground() {
       path: "/shopper/nearby-tasks",
       title: "Discover Audits Near GPS Coordinates",
       description: "Calculates spherical distance from the shopper's live GPS coordinates to available retail store perimeters.",
-      flowStep: "Phase 2 • Shopper Radar Dispatch Mesh",
+      flowStep: "Phase 2 â€¢ Shopper Radar Dispatch Mesh",
       dbAction: "SELECT * FROM assignments WHERE distance <= max_radius",
       dbTable: "assignments JOIN locations",
       defaultParams: {
@@ -176,7 +176,7 @@ export default function ApiDocsPlayground() {
       path: "/shopper/submit-audit",
       title: "Submit Field Audit & Trigger AI Inference",
       description: "Uploads shelf photo, GPS hardware logs, and receipt proof. Triggers YOLOv8 vision and OCR scoring in 840ms.",
-      flowStep: "Phase 3 • Edge AI Vision & Compliance Scoring",
+      flowStep: "Phase 3 â€¢ Edge AI Vision & Compliance Scoring",
       dbAction: "INSERT INTO ai_analysis & UPDATE assignments SET status='submitted'",
       dbTable: "ai_analysis, submissions",
       defaultBody: {
@@ -213,7 +213,7 @@ export default function ApiDocsPlayground() {
       path: "/admin/submissions",
       title: "List Submissions for AI QC Review",
       description: "Retrieves audited field store reports with bounding boxes, EXIF tamper logs, and sentiment transcripts.",
-      flowStep: "Phase 4 • Executive QC & Escrow Settlement",
+      flowStep: "Phase 4 â€¢ Executive QC & Escrow Settlement",
       dbAction: "SELECT * FROM submissions ORDER BY submitted_at DESC",
       dbTable: "submissions JOIN ai_analysis",
       defaultParams: {
@@ -249,7 +249,7 @@ export default function ApiDocsPlayground() {
       path: "/admin/submissions/sub-8922/action",
       title: "Execute QC Override & Release Escrow",
       description: "Admin approves, rejects, or reassigns an audit. Approvals automatically release smart escrow funds to shopper wallet.",
-      flowStep: "Phase 4 • Financial Settlement & Fraud Quarantine",
+      flowStep: "Phase 4 â€¢ Financial Settlement & Fraud Quarantine",
       dbAction: "UPDATE submissions SET status='qc_approved', escrow_released=1",
       dbTable: "submissions, wallets",
       defaultBody: {
@@ -273,7 +273,7 @@ export default function ApiDocsPlayground() {
       path: "/analytics/overview",
       title: "Executive Aggregated Analytics",
       description: "Returns platform-wide KPI metrics: Total hours saved, Out-of-Stock loss reduction, and global compliance indexes.",
-      flowStep: "Executive BI • Live Snowflake / PowerBI Feeds",
+      flowStep: "Executive BI â€¢ Live Snowflake / PowerBI Feeds",
       dbAction: "SELECT COUNT(*), AVG(quality_score), SUM(budget) FROM projects",
       dbTable: "projects, submissions, assignments",
       sampleResponse: {
@@ -372,14 +372,14 @@ export default function ApiDocsPlayground() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] font-sans pb-24">
+    <div className="min-h-screen bg-white text-slate-900 font-sans pb-24">
       
       {/* Top Console Bar */}
       <div className="border-b border-slate-200 dark:border-slate-800/80 bg-white/90 dark:bg-slate-950/80 backdrop-blur-xl sticky top-16 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/30">
+            <div className="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-600/30">
               <Terminal className="w-5 h-5" />
             </div>
             <div>
@@ -388,7 +388,7 @@ export default function ApiDocsPlayground() {
                   Interactive API Console &amp; Database Explorer
                 </span>
                 <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">
-                  ● LIVE V1.0
+                  â— LIVE V1.0
                 </span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
@@ -409,7 +409,7 @@ export default function ApiDocsPlayground() {
             </a>
 
             <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono text-slate-500">
-              <Server className="w-3.5 h-3.5 text-indigo-500" />
+              <Server className="w-3.5 h-3.5 text-blue-500" />
               <span>:8000/api/v1</span>
             </div>
           </div>
@@ -434,7 +434,7 @@ export default function ApiDocsPlayground() {
                   placeholder="Filter by endpoint path or name..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-xs text-slate-900 dark:text-white focus:outline-none focus:border-blue-500"
                 />
               </div>
 
@@ -452,7 +452,7 @@ export default function ApiDocsPlayground() {
                     onClick={() => setActiveCategory(cat.id)}
                     className={`px-3 py-1 rounded-lg text-xs font-bold transition-all ${
                       activeCategory === cat.id
-                        ? "bg-indigo-600 !text-white shadow-sm"
+                        ? "bg-blue-600 !text-white shadow-sm"
                         : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
                     }`}
                   >
@@ -472,7 +472,7 @@ export default function ApiDocsPlayground() {
                     onClick={() => selectEndpoint(ep)}
                     className={`w-full text-left p-4 rounded-2xl border transition-all duration-200 flex flex-col gap-1.5 cursor-pointer ${
                       isSelected
-                        ? "border-indigo-500 bg-indigo-50/70 dark:bg-indigo-950/40 shadow-md ring-1 ring-indigo-500/30"
+                        ? "border-blue-500 bg-blue-50/70 dark:bg-blue-950/40 shadow-md ring-1 ring-blue-500/30"
                         : "border-slate-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/50 hover:border-slate-300 dark:hover:border-slate-700"
                     }`}
                   >
@@ -489,7 +489,7 @@ export default function ApiDocsPlayground() {
                           {ep.path}
                         </span>
                       </div>
-                      <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? "text-indigo-600 dark:text-indigo-400 translate-x-1" : "text-slate-400"}`} />
+                      <ChevronRight className={`w-4 h-4 transition-transform ${isSelected ? "text-blue-600 dark:text-blue-400 translate-x-1" : "text-slate-400"}`} />
                     </div>
 
                     <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 line-clamp-1">
@@ -536,7 +536,7 @@ export default function ApiDocsPlayground() {
                   <button
                     onClick={handleExecuteRequest}
                     disabled={isLoading}
-                    className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 !text-white font-heading font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-indigo-600/30 flex items-center justify-center gap-2.5 shrink-0 cursor-pointer disabled:opacity-50"
+                    className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 !text-white font-heading font-black text-xs uppercase tracking-wider transition-all shadow-xl shadow-blue-600/30 flex items-center justify-center gap-2.5 shrink-0 cursor-pointer disabled:opacity-50"
                   >
                     {isLoading ? (
                       <>
@@ -555,7 +555,7 @@ export default function ApiDocsPlayground() {
                 {/* URL Bar */}
                 <div className="p-3 rounded-2xl bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex items-center gap-3 font-mono text-xs">
                   <span className="text-slate-400">ENDPOINT:</span>
-                  <span className="text-indigo-600 dark:text-indigo-400 font-bold">{API_BASE}{selectedEndpoint.path}</span>
+                  <span className="text-blue-600 dark:text-blue-400 font-bold">{API_BASE}{selectedEndpoint.path}</span>
                 </div>
 
                 {/* Query Parameters (if any) */}
@@ -589,7 +589,7 @@ export default function ApiDocsPlayground() {
                       </label>
                       <button
                         onClick={() => setRequestBody(JSON.stringify(selectedEndpoint.defaultBody, null, 2))}
-                        className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline font-bold"
+                        className="text-[11px] text-blue-600 dark:text-blue-400 hover:underline font-bold"
                       >
                         Reset to Sample Payload
                       </button>
@@ -598,7 +598,7 @@ export default function ApiDocsPlayground() {
                       rows={6}
                       value={requestBody}
                       onChange={(e) => setRequestBody(e.target.value)}
-                      className="w-full p-4 rounded-2xl bg-slate-950 text-emerald-400 font-mono text-xs border border-slate-800 focus:outline-none focus:border-indigo-500 leading-relaxed"
+                      className="w-full p-4 rounded-2xl bg-slate-950 text-emerald-400 font-mono text-xs border border-slate-800 focus:outline-none focus:border-blue-500 leading-relaxed"
                     />
                   </div>
                 )}
@@ -611,7 +611,7 @@ export default function ApiDocsPlayground() {
                         onClick={() => setActiveTab("response")}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                           activeTab === "response"
-                            ? "bg-indigo-600 !text-white shadow-sm"
+                            ? "bg-blue-600 !text-white shadow-sm"
                             : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
                       >
@@ -621,7 +621,7 @@ export default function ApiDocsPlayground() {
                         onClick={() => setActiveTab("flow")}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
                           activeTab === "flow"
-                            ? "bg-indigo-600 !text-white shadow-sm"
+                            ? "bg-blue-600 !text-white shadow-sm"
                             : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
                       >
@@ -632,7 +632,7 @@ export default function ApiDocsPlayground() {
                         onClick={() => setActiveTab("curl")}
                         className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                           activeTab === "curl"
-                            ? "bg-indigo-600 !text-white shadow-sm"
+                            ? "bg-blue-600 !text-white shadow-sm"
                             : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                         }`}
                       >
@@ -679,8 +679,8 @@ export default function ApiDocsPlayground() {
                     <div className="space-y-4">
                       
                       {/* Architecture Step */}
-                      <div className="p-5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-500/30 text-slate-700 dark:text-slate-200">
-                        <div className="flex items-center gap-2 font-heading font-black text-sm text-indigo-600 dark:text-indigo-400 mb-1">
+                      <div className="p-5 rounded-2xl bg-blue-50/60 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-500/30 text-slate-700 dark:text-slate-200">
+                        <div className="flex items-center gap-2 font-heading font-black text-sm text-blue-600 dark:text-blue-400 mb-1">
                           <Layers className="w-4 h-4" />
                           <span>Project Flow Step</span>
                         </div>
@@ -707,7 +707,7 @@ export default function ApiDocsPlayground() {
                         </div>
 
                         <div className="pt-2 text-[11px] text-slate-400">
-                          ✓ Automatically committed to SQLite / MS SQL Server via SQLAlchemy ORM with ACID transaction safety.
+                          âœ“ Automatically committed to SQLite / MS SQL Server via SQLAlchemy ORM with ACID transaction safety.
                         </div>
                       </div>
 
@@ -747,3 +747,5 @@ export default function ApiDocsPlayground() {
     </div>
   );
 }
+
+

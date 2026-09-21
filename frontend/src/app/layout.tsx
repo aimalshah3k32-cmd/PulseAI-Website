@@ -1,5 +1,6 @@
-import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Outfit } from "next/font/google";
+﻿import type { Metadata } from "next";
+import { Suspense } from "react";
+import { Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
@@ -8,13 +9,13 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { PageTransition } from "@/components/PageTransition";
 import { RouteProgressBar } from "@/components/RouteProgressBar";
 
-const plusJakarta = Plus_Jakarta_Sans({
+const notoSans = Noto_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
   weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const outfit = Outfit({
+const notoSansHeading = Noto_Sans({
   subsets: ["latin"],
   variable: "--font-heading",
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -31,10 +32,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`dark scroll-smooth ${plusJakarta.variable} ${outfit.variable}`}>
-      <body className="antialiased min-h-screen selection:bg-indigo-500 selection:text-white flex flex-col font-sans bg-[var(--bg-main)] text-[var(--text-primary)]">
+    <html lang="en" className={`scroll-smooth ${notoSans.variable} ${notoSansHeading.variable}`}>
+      <body className="antialiased min-h-screen selection:bg-blue-100 selection:text-blue-900 flex flex-col font-sans bg-white text-slate-900">
         <ThemeProvider>
-          <RouteProgressBar />
+          <Suspense fallback={null}>
+            <RouteProgressBar />
+          </Suspense>
           <Navbar />
           <main className="flex-1">
             <PageTransition>
@@ -48,3 +51,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+

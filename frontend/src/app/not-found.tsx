@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export default function NotFound() {
   return (
@@ -7,10 +7,12 @@ export default function NotFound() {
       <p className="text-sm text-slate-400 mb-6">The requested portal route could not be found.</p>
       <Link
         href="/"
-        className="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs"
+        className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs"
       >
         Return to Home
       </Link>
     </div>
   );
 }
+
+

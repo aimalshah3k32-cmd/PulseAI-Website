@@ -18,10 +18,21 @@ def init_engine():
     if "mssql" in db_url or "postgresql" in db_url:
         try:
             logger.info(f"Attempting connection to primary database: {db_url.split('@')[-1] if '@' in db_url else 'specified database'}")
+            target_url = db_url
+            if "mssql" in db_url:
+                import urllib.parse
+                from sqlalchemy.engine import make_url
+                parsed_url = make_url(db_url)
+                if parsed_url.database:
+                    # Unquote database name (e.g. 'AI%20project' -> 'AI project') so ODBC driver receives clean name
+                    unquoted_db = urllib.parse.unquote(parsed_url.database)
+                    target_url = parsed_url.set(database=unquoted_db)
+
             test_engine = create_engine(
-                db_url,
+                target_url,
                 echo=False,
-                connect_args={"timeout": 5} if "mssql" in db_url else {}
+                pool_pre_ping=True,
+                connect_args={"timeout": 10} if "mssql" in db_url else {}
             )
             with test_engine.connect() as conn:
                 conn.execute(text("SELECT 1"))

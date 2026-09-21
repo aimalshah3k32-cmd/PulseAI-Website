@@ -48,45 +48,72 @@ export default function ClientRegistrationPage() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
-    try {
-      try {
-        const payload = {
-          email,
-          password,
-          full_name: fullName,
-          phone: phone || "+971 54 478 0113",
-          role: "client",
-          company_name: companyName,
-          industry: industry,
-          service_needed: service,
-          city: "Dubai, UAE",
-          country: "United Arab Emirates",
-          store_count: "10-50 stores"
-        };
+    const apiBase = (typeof window !== "undefined" && `${window.location.protocol}//${window.location.hostname}:8000/api/v1`) || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
-        const res = await axios.post("http://localhost:8000/api/v1/auth/register", payload, {
-          timeout: 3000
+    try {
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanName = fullName.trim();
+      const cleanCompany = companyName.trim() || `${cleanName}'s Enterprise`;
+
+      const payload = {
+        email: cleanEmail,
+        password,
+        full_name: cleanName,
+        phone: phone.trim() || "+971 54 478 0113",
+        role: "client",
+        company_name: cleanCompany,
+        industry: industry,
+        service_needed: service,
+        city: "Dubai, UAE",
+        country: "United Arab Emirates",
+        store_count: "10-50 stores"
+      };
+
+      try {
+        const res = await axios.post(`${apiBase}/auth/register`, payload, {
+          timeout: 4000
         });
 
         if (res.data?.access_token) {
           localStorage.setItem("pulseai_token", res.data.access_token);
         }
-      } catch (err) {
-        // Fallback for offline demo
+      } catch (err: any) {
+        // If email already exists, attempt automatic login
+        if (err.response?.status === 400 || err.response?.data?.detail?.includes("already exists")) {
+          try {
+            const loginRes = await axios.post(`${apiBase}/auth/login`, {
+              email: cleanEmail,
+              password
+            }, { timeout: 4000 });
+
+            if (loginRes.data?.access_token) {
+              localStorage.setItem("pulseai_token", loginRes.data.access_token);
+            }
+          } catch (loginErr) {
+            throw loginErr;
+          }
+        } else {
+          throw err;
+        }
       }
 
-      localStorage.setItem("pulseai_client_company", companyName || "Enterprise Client");
-      localStorage.setItem("pulseai_client_name", fullName || "Brand Executive");
-      localStorage.setItem("pulseai_client_email", email);
+      // Safely persist client session
+      try {
+        localStorage.setItem("pulseai_client_company", cleanCompany);
+        localStorage.setItem("pulseai_client_name", cleanName || "Brand Executive");
+        localStorage.setItem("pulseai_client_email", cleanEmail);
+      } catch (storageErr) {
+        console.warn("Storage access notice:", storageErr);
+      }
 
-      setSuccessMsg(`✓ Client Registration Complete for ${companyName || fullName}! Redirecting to Client Studio...`);
+      setSuccessMsg(`âœ“ Client Registration Complete for ${cleanCompany}! Redirecting to Client Studio...`);
 
       setTimeout(() => {
         router.push("/client");
       }, 700);
 
     } catch (err: any) {
-      setErrorMsg(err.response?.data?.detail || "Registration error. Please check your details.");
+      setErrorMsg(err.response?.data?.detail || "Registration error. Please verify your details.");
     } finally {
       setIsLoading(false);
     }
@@ -100,7 +127,7 @@ export default function ClientRegistrationPage() {
         href="https://wa.me/971544780113"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 left-6 z-50 w-13 h-13 rounded-full bg-gradient-to-tr from-indigo-600 to-cyan-500 text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer group"
+        className="fixed bottom-6 left-6 z-50 w-13 h-13 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer group"
         title="PulseAI Enterprise Concierge"
       >
         <MessageCircle className="w-6 h-6 fill-white" />
@@ -111,11 +138,11 @@ export default function ClientRegistrationPage() {
         
         {/* Breadcrumb Bar */}
         <div className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6">
-          <Link href="/" prefetch={true} className="hover:text-indigo-600 transition-colors">Home</Link>
+          <Link href="/" prefetch={true} className="hover:text-blue-600 transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3 text-slate-400" />
-          <Link href="/register" prefetch={true} className="hover:text-indigo-600 transition-colors">Register</Link>
+          <Link href="/register" prefetch={true} className="hover:text-blue-600 transition-colors">Register</Link>
           <ChevronRight className="w-3 h-3 text-slate-400" />
-          <span className="text-indigo-600 dark:text-indigo-400 font-bold">Client Registration</span>
+          <span className="text-blue-600 dark:text-blue-400 font-bold">Client Registration</span>
         </div>
 
         {/* =========================================================================
@@ -136,9 +163,9 @@ export default function ClientRegistrationPage() {
             <Link
               href="/register/shopper"
               prefetch={true}
-              className="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1"
+              className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
             >
-              <span>Shopper Portal →</span>
+              <span>Shopper Portal â†’</span>
             </Link>
           </div>
 
@@ -162,7 +189,7 @@ export default function ClientRegistrationPage() {
             {/* Name * */}
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                Name <span className="text-indigo-600 dark:text-indigo-400">*</span>
+                Name <span className="text-blue-600 dark:text-blue-400">*</span>
               </label>
               <input
                 type="text"
@@ -170,14 +197,14 @@ export default function ClientRegistrationPage() {
                 placeholder="Sarah Jenkins"
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
               />
             </div>
 
             {/* Company Name * */}
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                Company Name <span className="text-indigo-600 dark:text-indigo-400">*</span>
+                Company Name <span className="text-blue-600 dark:text-blue-400">*</span>
               </label>
               <input
                 type="text"
@@ -185,14 +212,14 @@ export default function ClientRegistrationPage() {
                 placeholder="e.g. Unilever, Starbucks, Majid Al Futtaim"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
               />
             </div>
 
             {/* E-Mail * */}
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                E-Mail <span className="text-indigo-600 dark:text-indigo-400">*</span>
+                E-Mail <span className="text-blue-600 dark:text-blue-400">*</span>
               </label>
               <input
                 type="email"
@@ -200,14 +227,14 @@ export default function ClientRegistrationPage() {
                 placeholder="sarah@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
               />
             </div>
 
             {/* Phone * */}
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                Phone / Mobile Number <span className="text-indigo-600 dark:text-indigo-400">*</span>
+                Phone / Mobile Number <span className="text-blue-600 dark:text-blue-400">*</span>
               </label>
               <input
                 type="tel"
@@ -215,7 +242,7 @@ export default function ClientRegistrationPage() {
                 placeholder="+971 54 478 0113"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
               />
             </div>
 
@@ -229,7 +256,7 @@ export default function ClientRegistrationPage() {
                   <select
                     value={service}
                     onChange={(e) => setService(e.target.value)}
-                    className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white focus:outline-none focus:border-indigo-600 cursor-pointer appearance-none transition-all"
+                    className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-600 cursor-pointer appearance-none transition-all"
                   >
                     <option value="Mystery Shopping & CX Evaluation">Mystery Shopping &amp; CX Evaluation</option>
                     <option value="Retail Shelf Planogram CV Audits">Retail Shelf Planogram &amp; Computer Vision</option>
@@ -238,7 +265,7 @@ export default function ClientRegistrationPage() {
                     <option value="Price & Competitor Benchmarking">Price &amp; Competitor Benchmarking</option>
                   </select>
                   <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
-                    ▼
+                    â–¼
                   </div>
                 </div>
               </div>
@@ -251,7 +278,7 @@ export default function ClientRegistrationPage() {
                   <select
                     value={industry}
                     onChange={(e) => setIndustry(e.target.value)}
-                    className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white focus:outline-none focus:border-indigo-600 cursor-pointer appearance-none transition-all"
+                    className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-600 cursor-pointer appearance-none transition-all"
                   >
                     <option value="Retail & Consumer Goods">Retail &amp; Consumer Goods</option>
                     <option value="Hospitality, Hotels & Dining">Hospitality, Hotels &amp; Dining</option>
@@ -261,7 +288,7 @@ export default function ClientRegistrationPage() {
                     <option value="Telecom & Electronics">Telecom &amp; Electronics</option>
                   </select>
                   <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
-                    ▼
+                    â–¼
                   </div>
                 </div>
               </div>
@@ -270,16 +297,16 @@ export default function ClientRegistrationPage() {
             {/* Password * */}
             <div>
               <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
-                Password <span className="text-indigo-600 dark:text-indigo-400">*</span>
+                Password <span className="text-blue-600 dark:text-blue-400">*</span>
               </label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   required
-                  placeholder="••••••••••••"
+                  placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-600 focus:ring-1 focus:ring-indigo-600 transition-all"
+                  className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
                 />
                 <button
                   type="button"
@@ -298,7 +325,7 @@ export default function ClientRegistrationPage() {
                 disabled={isLoading}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-8 py-3.5 rounded-lg bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 text-white font-bold text-sm shadow-md shadow-indigo-600/25 transition-all cursor-pointer flex items-center justify-center gap-2 font-heading uppercase tracking-wider disabled:opacity-50"
+                className="px-8 py-3.5 rounded-lg bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm shadow-md shadow-blue-600/25 transition-all cursor-pointer flex items-center justify-center gap-2 font-heading uppercase tracking-wider disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
@@ -324,7 +351,7 @@ export default function ClientRegistrationPage() {
             ========================================================================= */}
         <div className="pt-4 pb-10 space-y-6 border-t border-slate-200 dark:border-slate-800">
           
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/25 text-indigo-600 dark:text-indigo-400 text-xs font-mono font-bold uppercase tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Enterprise Quality &amp; Intelligence Overview</span>
           </div>
@@ -339,11 +366,11 @@ export default function ClientRegistrationPage() {
 
           <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
             <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-800 dark:text-slate-100 uppercase tracking-tight mb-2 flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               <span>STREAMLINED REGISTRATION BENEFITS</span>
             </h3>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl">
-              Our client registration process opens the door to comprehensive quality assessment services trusted by leading brands across UAE. According to the UAE Chamber of Commerce, businesses using mystery shopping services report a <strong className="text-indigo-600 dark:text-indigo-400 font-bold">40% improvement in customer satisfaction rates</strong>.
+              Our client registration process opens the door to comprehensive quality assessment services trusted by leading brands across UAE. According to the UAE Chamber of Commerce, businesses using mystery shopping services report a <strong className="text-blue-600 dark:text-blue-400 font-bold">40% improvement in customer satisfaction rates</strong>.
             </p>
           </div>
 
@@ -353,19 +380,19 @@ export default function ClientRegistrationPage() {
             </h4>
             <ul className="space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
-                <span>Immediate access to <Link href="/process" prefetch={true} className="text-indigo-600 dark:text-indigo-400 underline font-medium">our services</Link></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>Immediate access to <Link href="/process" prefetch={true} className="text-blue-600 dark:text-blue-400 underline font-medium">our services</Link></span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
                 <span>Custom-tailored mystery shopping solutions</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
                 <span>Omnichannel retail, dining, hospitality &amp; automotive audit programs</span>
               </li>
               <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-indigo-600" />
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
                 <span>Computer vision shelf planograms &amp; real-time CX reporting dashboards</span>
               </li>
             </ul>
@@ -379,9 +406,9 @@ export default function ClientRegistrationPage() {
             
             {/* Brand Color Swatches */}
             <div className="flex items-center gap-2 mb-6">
-              <span className="w-4 h-4 rounded-sm bg-indigo-600" />
+              <span className="w-4 h-4 rounded-sm bg-blue-600" />
               <span className="w-4 h-4 rounded-sm bg-cyan-500" />
-              <span className="w-4 h-4 rounded-sm bg-purple-600" />
+              <span className="w-4 h-4 rounded-sm bg-orange-500" />
               <span className="w-4 h-4 rounded-sm bg-emerald-500" />
               <span className="w-4 h-4 rounded-sm bg-amber-500" />
               <span className="w-4 h-4 rounded-sm bg-slate-700" />
@@ -442,7 +469,7 @@ export default function ClientRegistrationPage() {
             </svg>
 
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-4 font-medium">
-              PulseAI Autonomous CX Intelligence • Real-Time Field Verification • Global Enterprise Reach
+              PulseAI Autonomous CX Intelligence â€¢ Real-Time Field Verification â€¢ Global Enterprise Reach
             </p>
           </div>
 
@@ -453,3 +480,5 @@ export default function ClientRegistrationPage() {
     </div>
   );
 }
+
+

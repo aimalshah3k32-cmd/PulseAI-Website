@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect } from "react";
 import { motion } from "framer-motion";
@@ -28,3 +28,5 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
     </motion.div>
   );
 }
+
+

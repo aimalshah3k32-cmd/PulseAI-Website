@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -47,24 +47,44 @@ export function HeroVisualAnimation() {
   return (
     <div className="relative w-full">
       
-      {/* Background Soft Glow Aura */}
-      <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/25 via-indigo-500/25 to-cyan-500/25 rounded-3xl blur-2xl opacity-70 group-hover:opacity-100 transition duration-1000 -z-10" />
-
-      {/* 3D Motion Container */}
+      {/* Continuous Dynamic Floating Animation Wrapper */}
       <motion.div
-        ref={containerRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
+        animate={{
+          y: [-7, 7, -7],
+          rotate: [-0.6, 0.6, -0.6],
         }}
-        initial={{ opacity: 0, scale: 0.96 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="relative rounded-3xl border border-slate-200/90 dark:border-indigo-500/40 bg-white/95 dark:bg-slate-950/90 backdrop-blur-2xl p-4 sm:p-5 shadow-2xl shadow-indigo-500/10 dark:shadow-3d-card overflow-hidden group"
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+        className="relative w-full"
       >
+        {/* Background Soft Glow Aura with Pulse */}
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.65, 0.95, 0.65],
+          }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -inset-2 bg-gradient-to-r from-emerald-500/25 via-blue-500/25 to-cyan-500/25 rounded-3xl blur-2xl -z-10"
+        />
+
+        {/* 3D Motion Container */}
+        <motion.div
+          ref={containerRef}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            rotateX,
+            rotateY,
+            transformStyle: "preserve-3d",
+          }}
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="relative rounded-3xl border border-slate-200/90 dark:border-blue-500/40 bg-white/95 dark:bg-slate-950/90 backdrop-blur-2xl p-4 sm:p-5 shadow-2xl shadow-blue-500/10 dark:shadow-3d-card overflow-hidden group"
+        >
         
         {/* Top Control Bar with Live Status & Mode Pills */}
         <div className="flex items-center justify-between gap-3 pb-3 mb-3 border-b border-slate-200/80 dark:border-slate-800/80">
@@ -87,8 +107,8 @@ export function HeroVisualAnimation() {
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 text-[11px] font-bold">
-              <Building2 className="w-3 h-3 text-indigo-500" />
+            <span className="hidden sm:inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-[11px] font-bold">
+              <Building2 className="w-3 h-3 text-blue-500" />
               <span>Retail &amp; Supermarket</span>
             </span>
           </div>
@@ -98,10 +118,10 @@ export function HeroVisualAnimation() {
         {/* The Front Picture Frame with Realistic Mystery Shopper */}
         <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-900 shadow-inner">
           
-          {/* Main Front Picture */}
+          {/* Main Front Picture - Luxury Dubai Mystery Shopping Audit */}
           <Image
-            src="/images/mystery-shopping-front.jpg"
-            alt="PulseAI Mystery Shopping and Retail Shelf Audit in action"
+            src="/images/undercover-style-hero.jpg"
+            alt="PulseAI Luxury Mystery Shopping & Retail Audit in Dubai UAE"
             fill
             priority
             className="object-cover object-center scale-[1.01] group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -118,7 +138,7 @@ export function HeroVisualAnimation() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-emerald-400/25 to-indigo-500/35 pointer-events-none border-b-2 border-emerald-400 shadow-[0_0_20px_rgba(52,211,153,0.8)] z-20"
+              className="absolute left-0 right-0 h-16 bg-gradient-to-b from-transparent via-emerald-400/25 to-blue-500/35 pointer-events-none border-b-2 border-emerald-400 shadow-[0_0_20px_rgba(52,211,153,0.8)] z-20"
             />
           )}
 
@@ -155,9 +175,9 @@ export function HeroVisualAnimation() {
 
             {/* Middle Feature Highlights */}
             <div className="grid grid-cols-2 gap-2 pointer-events-none max-w-sm">
-              <div className="p-2 rounded-xl bg-slate-950/85 border border-indigo-400/50 backdrop-blur-md text-white shadow-lg">
-                <div className="text-[10px] text-indigo-300 font-mono font-bold flex items-center gap-1">
-                  <Scan className="w-3 h-3 text-indigo-400" />
+              <div className="p-2 rounded-xl bg-slate-950/85 border border-blue-400/50 backdrop-blur-md text-white shadow-lg">
+                <div className="text-[10px] text-blue-300 font-mono font-bold flex items-center gap-1">
+                  <Scan className="w-3 h-3 text-blue-400" />
                   Product SKU Detection
                 </div>
                 <div className="text-xs font-bold font-heading text-white mt-0.5">24 Facings Verified</div>
@@ -186,7 +206,7 @@ export function HeroVisualAnimation() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/register/client"
-                  className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 !text-white text-xs font-bold font-heading shadow-md shadow-indigo-600/30 flex items-center gap-1 scale-100 hover:scale-105 transition-all"
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 !text-white text-xs font-bold font-heading shadow-md shadow-blue-600/30 flex items-center gap-1 scale-100 hover:scale-105 transition-all"
                 >
                   <Building2 className="w-3.5 h-3.5 !text-white" />
                   <span>Register Client</span>
@@ -219,7 +239,7 @@ export function HeroVisualAnimation() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsScanning(!isScanning)}
-              className="text-indigo-600 dark:text-indigo-400 hover:underline cursor-pointer flex items-center gap-1 font-bold"
+              className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer flex items-center gap-1 font-bold"
             >
               <Activity className="w-3.5 h-3.5" />
               <span>{isScanning ? "Pause Scanner" : "Resume Scanner"}</span>
@@ -228,7 +248,9 @@ export function HeroVisualAnimation() {
         </div>
 
       </motion.div>
-
-    </div>
-  );
+    </motion.div>
+  </div>
+);
 }
+
+

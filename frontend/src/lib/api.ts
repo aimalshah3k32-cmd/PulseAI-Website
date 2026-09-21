@@ -1,13 +1,23 @@
 import axios from "axios";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+export const getApiBase = () => {
+  if (typeof window !== "undefined") {
+    return `${window.location.protocol}//${window.location.hostname}:8000/api/v1`;
+  }
+  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+};
 
 const apiClient = axios.create({
-  baseURL: API_BASE,
-  timeout: 5000,
+  baseURL: getApiBase(),
+  timeout: 8000,
   headers: {
     "Content-Type": "application/json",
   },
+});
+
+apiClient.interceptors.request.use((config) => {
+  config.baseURL = getApiBase();
+  return config;
 });
 
 // Seed mock state for seamless offline fallback

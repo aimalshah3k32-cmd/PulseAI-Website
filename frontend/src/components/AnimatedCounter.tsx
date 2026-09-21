@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useRef, useState } from "react";
 import { useInView, motion } from "framer-motion";
@@ -72,3 +72,5 @@ export function AnimatedCounter({
     </motion.span>
   );
 }
+
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -41,7 +41,7 @@ export function EnterpriseCaseStudies() {
       id: "fmcg-beverage",
       clientCategory: "Global FMCG & Beverage Conglomerate",
       clientTitle: "Recovering $4.2M in Out-of-Stock Cooler Revenue",
-      badge: "FMCG • 3,200 Coolers Audited",
+      badge: "FMCG â€¢ 3,200 Coolers Audited",
       quote: "PulseAI replaced three fragmented regional agencies with a unified automated AI pipeline. Detecting out-of-stock cooler voids in 840 milliseconds instead of waiting 3 weeks for spreadsheets completely transformed our sales velocity.",
       authorName: "Marcus Vance",
       authorTitle: "VP of Global Commercial Operations",
@@ -50,7 +50,7 @@ export function EnterpriseCaseStudies() {
       solution: "Deployed PulseAI's autonomous shopper mesh with hardware-locked GPS geofencing and sub-second YOLOv8 computer vision. Out-of-stock voids immediately trigger automated alerts to local distributor teams.",
       stats: [
         { label: "Revenue Recovered", value: "$4.2M", sub: "Annualized stock loss prevented", color: "text-emerald-600 dark:text-emerald-400" },
-        { label: "Turnaround Time", value: "840ms", sub: "Down from 21 days manual QC", color: "text-indigo-600 dark:text-indigo-400" },
+        { label: "Turnaround Time", value: "840ms", sub: "Down from 21 days manual QC", color: "text-blue-600 dark:text-blue-400" },
         { label: "On-Shelf Availability", value: "+14.2%", sub: "Measured across 50 markets", color: "text-cyan-600 dark:text-cyan-400" }
       ],
       tags: ["Real-Time CV", "Planogram Compliance", "Escrow Settlement"]
@@ -59,16 +59,16 @@ export function EnterpriseCaseStudies() {
       id: "luxury-cosmetics",
       clientCategory: "Prestige Beauty & Luxury Boutiques",
       clientTitle: "100% Elimination of Freelancer Fraud Across 450 Boutiques",
-      badge: "Luxury Retail • Paris, Dubai, Tokyo, NY",
+      badge: "Luxury Retail â€¢ Paris, Dubai, Tokyo, NY",
       quote: "Our boutique experience demands perfection. The cryptographic EXIF verification, biometric shopper checks, and printed receipt OCR ensured our board received authentic customer journey intelligence without fabricated data.",
       authorName: "Elena Rostova",
       authorTitle: "Chief Experience Officer (CXO)",
       authorCompany: "International Luxury Beauty Group",
       challenge: "Previous mystery shopping providers suffered from rampant GPS spoofing and recycled stock photos. Executives had zero confidence in consultant greeting latency reports and fragrance upsell compliance.",
-      solution: "Enforced strict hardware-level geofence checks (±1.8m accuracy), audio consultation sentiment scoring, and instant receipt OCR verification with automated escrow payout incentives.",
+      solution: "Enforced strict hardware-level geofence checks (Â±1.8m accuracy), audio consultation sentiment scoring, and instant receipt OCR verification with automated escrow payout incentives.",
       stats: [
         { label: "Fraud Attempt Rate", value: "0.00%", sub: "100% spoofing quarantined", color: "text-emerald-600 dark:text-emerald-400" },
-        { label: "Greeting Latency", value: "24 Sec", sub: "Benchmarked from 65s average", color: "text-indigo-600 dark:text-indigo-400" },
+        { label: "Greeting Latency", value: "24 Sec", sub: "Benchmarked from 65s average", color: "text-blue-600 dark:text-blue-400" },
         { label: "Store Net Promoter Score", value: "+19 Pts", sub: "Customer satisfaction lift", color: "text-cyan-600 dark:text-cyan-400" }
       ],
       tags: ["Audio Sentiment", "Receipt OCR", "Biometric KYC"]
@@ -77,7 +77,7 @@ export function EnterpriseCaseStudies() {
       id: "consumer-tech",
       clientCategory: "Consumer Tech & Display Merchandising",
       clientTitle: "98.4% Display Stand Uptime Across 1,800 Flagship Retail Floors",
-      badge: "Consumer Electronics • 1,800 Floors",
+      badge: "Consumer Electronics â€¢ 1,800 Floors",
       quote: "During our flagship product launch, 30% of display stands at traditional retail partners were powered off or missing security cables. PulseAI gave us same-day verification and proof-of-performance across 1,800 doors.",
       authorName: "Kenji Takahashi",
       authorTitle: "Global Retail Merchandising Director",
@@ -86,7 +86,7 @@ export function EnterpriseCaseStudies() {
       solution: "Dispatched verified shoppers within a 15-minute radius with customized edge CV models to detect screen loop playback, interactive touch response, and cable integrity.",
       stats: [
         { label: "Display Uptime", value: "98.4%", sub: "Up from 68% pre-pilot", color: "text-emerald-600 dark:text-emerald-400" },
-        { label: "Dispatch Velocity", value: "14 Mins", sub: "Average shopper response time", color: "text-indigo-600 dark:text-indigo-400" },
+        { label: "Dispatch Velocity", value: "14 Mins", sub: "Average shopper response time", color: "text-blue-600 dark:text-blue-400" },
         { label: "Product Trial Conversions", value: "+38%", sub: "Direct in-store sales correlation", color: "text-cyan-600 dark:text-cyan-400" }
       ],
       tags: ["Display Auditing", "Hardware Geofencing", "Sub-Hour Dispatch"]
@@ -100,14 +100,14 @@ export function EnterpriseCaseStudies() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-indigo-500/30 bg-indigo-500/10 dark:bg-indigo-500/15 text-indigo-600 dark:text-indigo-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4 shadow-sm">
-            <Award className="w-4 h-4 text-indigo-500" />
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-blue-500/30 bg-blue-500/10 dark:bg-blue-500/15 text-blue-600 dark:text-blue-300 text-xs sm:text-sm font-bold uppercase tracking-wider mb-4 shadow-sm">
+            <Award className="w-4 h-4 text-blue-500" />
             <span>Proven Enterprise Impact</span>
           </div>
 
           <h2 className="font-heading text-4xl sm:text-6xl font-black text-slate-900 dark:text-white tracking-tight">
             Documented Results <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-500 dark:from-indigo-400 dark:via-purple-400 dark:to-cyan-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-orange-500 to-cyan-500 dark:from-blue-400 dark:via-orange-400 dark:to-cyan-400">
               Across Global Retailers
             </span>
           </h2>
@@ -127,7 +127,7 @@ export function EnterpriseCaseStudies() {
                 onClick={() => setActiveCase(idx)}
                 className={`px-5 py-3 rounded-2xl text-xs sm:text-sm font-heading font-black transition-all flex items-center gap-2 cursor-pointer ${
                   isSelected
-                    ? "bg-indigo-600 !text-white shadow-xl shadow-indigo-600/30 scale-105"
+                    ? "bg-blue-600 !text-white shadow-xl shadow-blue-600/30 scale-105"
                     : "border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
                 }`}
               >
@@ -155,7 +155,7 @@ export function EnterpriseCaseStudies() {
               <div className="lg:col-span-7 space-y-6">
                 
                 <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="text-xs font-mono font-bold uppercase px-3 py-1 rounded-full bg-indigo-100 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-500/30">
+                  <span className="text-xs font-mono font-bold uppercase px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-500/30">
                     {cases[activeCase].badge}
                   </span>
                   {cases[activeCase].tags.map((tag, tIdx) => (
@@ -188,7 +188,7 @@ export function EnterpriseCaseStudies() {
 
                 {/* Executive Quote Box */}
                 <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 relative">
-                  <Quote className="w-8 h-8 text-indigo-500/20 absolute top-4 right-4" />
+                  <Quote className="w-8 h-8 text-blue-500/20 absolute top-4 right-4" />
                   <p className="text-sm sm:text-base italic text-slate-700 dark:text-slate-200 leading-relaxed font-serif">
                     "{cases[activeCase].quote}"
                   </p>
@@ -198,7 +198,7 @@ export function EnterpriseCaseStudies() {
                         {cases[activeCase].authorName}
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                        {cases[activeCase].authorTitle}, <strong className="text-indigo-600 dark:text-indigo-400">{cases[activeCase].authorCompany}</strong>
+                        {cases[activeCase].authorTitle}, <strong className="text-blue-600 dark:text-blue-400">{cases[activeCase].authorCompany}</strong>
                       </div>
                     </div>
                   </div>
@@ -255,3 +255,5 @@ export function EnterpriseCaseStudies() {
     </section>
   );
 }
+
+

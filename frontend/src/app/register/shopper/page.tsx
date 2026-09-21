@@ -15,11 +15,11 @@ import {
   EyeOff,
   Building2,
   Sparkles,
-  Smartphone,
-  Radio,
   ArrowRight,
   Wallet,
-  Car
+  ChevronRight,
+  TrendingUp,
+  MessageCircle
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -89,16 +89,17 @@ export default function ShopperRegistrationAndPortalPage() {
           kyc_status: "verified"
         };
 
-        const endpoint = mode === "register" ? "/api/v1/auth/register" : "/api/v1/auth/login";
-        const res = await axios.post(`http://localhost:8000${endpoint}`, payload, {
-          timeout: 3000
+        const apiBase = (typeof window !== "undefined" && `${window.location.protocol}//${window.location.hostname}:8000/api/v1`) || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+        const endpoint = mode === "register" ? "/auth/register" : "/auth/login";
+        const res = await axios.post(`${apiBase}${endpoint}`, payload, {
+          timeout: 6000
         });
 
         if (res.data?.access_token) {
           localStorage.setItem("pulseai_token", res.data.access_token);
         }
-      } catch (err) {
-        // Fallback for offline demo
+      } catch (err: any) {
+        throw err;
       }
 
       // Persist local profile data matching SQL schema
@@ -127,122 +128,64 @@ export default function ShopperRegistrationAndPortalPage() {
   };
 
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden font-sans select-none">
+    <div className="min-h-screen bg-white dark:bg-[#0a0e1a] text-slate-900 dark:text-white py-10 px-4 sm:px-6 lg:px-8 relative font-sans transition-colors duration-200">
       
-      {/* Warm illuminated atmospheric blurred background with luxury retail & cafe depth (Screenshot 4 style) */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?q=80&w=2047&auto=format&fit=crop')`,
-          filter: "blur(6px) brightness(0.85)",
-          transform: "scale(1.04)",
-        }}
-      />
-      
-      {/* Warm soft ambient vignette (No pitch black overlay) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/40 pointer-events-none" />
-      <div className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-emerald-500/20 via-cyan-400/15 to-transparent blur-[140px] pointer-events-none -top-20" />
+      {/* PulseAI Live Support Floating Icon */}
+      <a
+        href="https://wa.me/971544780113"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 left-6 z-50 w-13 h-13 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-transform cursor-pointer group"
+        title="PulseAI Enterprise Concierge"
+      >
+        <MessageCircle className="w-6 h-6 fill-white" />
+        <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white animate-pulse" />
+      </a>
 
-      {/* Main 3D Container with Perspective */}
-      <div className="relative z-10 w-full max-w-[430px] flex flex-col items-center perspective-[1200px]">
+      <div className="max-w-5xl mx-auto">
         
-        {/* =========================================================================
-            3D VIBRANT LOGO-COLORED TOP SHIELD / CREST BADGE (Vibrant Emerald & Cyan)
-            ========================================================================= */}
-        <motion.div 
-          initial={{ y: -20, opacity: 0, scale: 0.95 }}
-          animate={{ y: 0, opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-30 -mb-7 flex flex-col items-center"
-          style={{ transformStyle: "preserve-3d" }}
-        >
-          {/* 3D Curved Shield with Vibrant Logo Gradient, Beveled Glow & Metallic Highlights */}
-          <div 
-            className="w-56 h-36 rounded-b-[110px] flex flex-col items-center justify-center pt-2 px-5 relative overflow-hidden transition-all duration-300"
-            style={{
-              background: "linear-gradient(145deg, #047857 0%, #10b981 45%, #06b6d4 100%)",
-              boxShadow: `
-                0 20px 45px -8px rgba(16, 185, 129, 0.65),
-                0 10px 20px -4px rgba(6, 182, 212, 0.45),
-                inset 0 3px 6px rgba(255, 255, 255, 0.7),
-                inset 0 -3px 8px rgba(0, 0, 0, 0.35)
-              `,
-              borderBottom: "3.5px solid rgba(255, 255, 255, 0.8)",
-              borderLeft: "2px solid rgba(255, 255, 255, 0.4)",
-              borderRight: "2px solid rgba(255, 255, 255, 0.4)",
-              transform: "translateZ(30px)",
-            }}
-          >
-            
-            {/* 3D Glass Arc Highlight Reflection */}
-            <div 
-              className="absolute top-0 inset-x-0 h-11 bg-gradient-to-b from-white/45 via-white/15 to-transparent pointer-events-none rounded-b-[80px]"
-            />
-            
-            {/* Holographic radiant glow */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.4)_0%,transparent_65%)] pointer-events-none" />
-
-            {/* PulseAI 3D Signature Emblem */}
-            <div className="flex flex-col items-center relative z-10">
-              
-              {/* 3D Floating "P" Logo Badge */}
-              <div 
-                className="w-13 h-13 rounded-2xl bg-white flex items-center justify-center font-black text-emerald-700 text-2xl relative"
-                style={{
-                  boxShadow: `
-                    0 10px 25px -4px rgba(0, 0, 0, 0.4),
-                    inset 0 2px 4px rgba(255, 255, 255, 0.9),
-                    inset 0 -2px 4px rgba(0, 0, 0, 0.15)
-                  `,
-                  border: "2px solid rgba(255, 255, 255, 0.9)"
-                }}
-              >
-                P
-                {/* Floating active pulse ring */}
-                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-white animate-ping opacity-75" />
-                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white" />
-              </div>
-
-              {/* Logo Typography with 3D Text Contrast */}
-              <div className="flex items-center gap-1.5 mt-2">
-                <span className="font-heading font-black text-sm tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-                  Pulse<span className="text-cyan-100">AI</span>
-                </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse shadow-[0_0_8px_#ffffff]" />
-              </div>
-
-              <span className="text-[9px] font-mono font-black tracking-[0.22em] text-white uppercase -mt-0.5 drop-shadow">
-                EVALUATOR RADAR
-              </span>
-
-            </div>
-
-          </div>
-        </motion.div>
+        {/* Breadcrumb Bar */}
+        <div className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-6">
+          <Link href="/" prefetch={true} className="hover:text-blue-600 transition-colors">Home</Link>
+          <ChevronRight className="w-3 h-3 text-slate-400" />
+          <Link href="/register" prefetch={true} className="hover:text-blue-600 transition-colors">Register</Link>
+          <ChevronRight className="w-3 h-3 text-slate-400" />
+          <span className="text-blue-600 dark:text-blue-400 font-bold">Shopper Portal</span>
+        </div>
 
         {/* =========================================================================
-            FORM BODY CARD WITH 3D GLASS DEPTH & HIGHLIGHTS
+            SECTION 1: CREDENTIALS / SHOPPER FORM (AT THE TOP)
             ========================================================================= */}
-        <motion.div 
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full pt-11 pb-8 px-8 sm:px-10 rounded-3xl bg-slate-900/60 backdrop-blur-2xl border border-white/25 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5),0_0_30px_rgba(16,185,129,0.18)] relative"
-          style={{ transformStyle: "preserve-3d" }}
-        >
+        <div className="bg-white dark:bg-[#0f172a] rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-10 shadow-sm mb-12">
           
-          {/* Subtle Top Glass Rim Highlight */}
-          <div className="absolute top-0 inset-x-8 h-[1px] bg-gradient-to-r from-transparent via-emerald-400/50 to-transparent" />
+          <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+            <div>
+              <h1 className="font-heading font-bold text-2xl sm:text-3xl text-slate-900 dark:text-white">
+                Shopper Registration &amp; Portal
+              </h1>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Register as a verified field evaluator or log in to your mystery shopping audit dashboard.
+              </p>
+            </div>
+            
+            <Link
+              href="/register/client"
+              prefetch={true}
+              className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1"
+            >
+              <span>Client Portal →</span>
+            </Link>
+          </div>
 
-          {/* Mode Switcher Tabs (3D Pill Tabs) */}
-          <div className="grid grid-cols-2 p-1 bg-black/30 rounded-xl border border-white/15 mb-6 shadow-inner">
+          {/* Mode Switcher Tabs */}
+          <div className="flex gap-3 mb-6 p-1.5 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 w-fit">
             <button
               type="button"
               onClick={() => { setMode("register"); setErrorMsg(null); }}
-              className={`py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
+              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
                 mode === "register"
-                  ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/50"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-600/25"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               Shopper Register
@@ -250,10 +193,10 @@ export default function ShopperRegistrationAndPortalPage() {
             <button
               type="button"
               onClick={() => { setMode("login"); setErrorMsg(null); }}
-              className={`py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
+              className={`px-5 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg transition-all cursor-pointer ${
                 mode === "login"
-                  ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-md shadow-emerald-950/50"
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-blue-600 text-white shadow-md shadow-blue-600/25"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
               }`}
             >
               Shopper Log In
@@ -262,235 +205,240 @@ export default function ShopperRegistrationAndPortalPage() {
 
           {/* Feedback Messages */}
           {errorMsg && (
-            <div className="p-3 mb-4 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-200 text-xs flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 shrink-0" />
+            <div className="p-4 mb-6 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs sm:text-sm flex items-center gap-3">
+              <AlertCircle className="w-5 h-5 shrink-0 text-rose-500" />
               <span>{errorMsg}</span>
             </div>
           )}
 
           {successMsg && (
-            <div className="p-3 mb-4 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <div className="p-4 mb-6 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-500" />
               <span>{successMsg}</span>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-6">
             
-            {/* If Register: Full Legal Name (matches dbo.users.full_name) */}
+            {/* If Register: Full Legal Name */}
             {mode === "register" && (
               <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-emerald-300/80 mb-0.5">
-                  Full Legal Name *
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                  Full Legal Name <span className="text-blue-600 dark:text-blue-400">*</span>
                 </label>
-                <div className="relative border-b border-white/20 focus-within:border-emerald-400 transition-colors py-1.5">
-                  <input
-                    type="text"
-                    required
-                    placeholder="Sarah Jenkins"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                    className="w-full pr-8 bg-transparent text-sm text-white placeholder:text-slate-500 focus:outline-none"
-                  />
-                  <User className="w-4 h-4 text-emerald-400/60 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
-                </div>
+                <input
+                  type="text"
+                  required
+                  placeholder="Sarah Jenkins"
+                  value={fullName}
+                  onChange={(e) => setFullName(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
+                />
               </div>
             )}
 
-            {/* Email Address (matches dbo.users.email) */}
+            {/* Email Address */}
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-emerald-300/80 mb-0.5">
-                Email Address *
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                E-Mail <span className="text-blue-600 dark:text-blue-400">*</span>
               </label>
-              <div className="relative border-b border-white/20 focus-within:border-emerald-400 transition-colors py-1.5">
-                <input
-                  type="email"
-                  required
-                  placeholder="evaluator@pulseai.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pr-8 bg-transparent text-sm text-white placeholder:text-slate-500 focus:outline-none"
-                />
-                <Mail className="w-4 h-4 text-emerald-400/60 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
-              </div>
+              <input
+                type="email"
+                required
+                placeholder="evaluator@pulseai.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
+              />
             </div>
 
-            {/* Password (matches dbo.users.password_hash) */}
+            {/* Password */}
             <div>
-              <label className="block text-[10px] font-mono uppercase tracking-wider text-emerald-300/80 mb-0.5">
-                Password *
+              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                Password <span className="text-blue-600 dark:text-blue-400">*</span>
               </label>
-              <div className="relative border-b border-white/20 focus-within:border-emerald-400 transition-colors py-1.5">
+              <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   required
                   placeholder="••••••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pr-12 bg-transparent text-sm text-white placeholder:text-slate-500 focus:outline-none"
+                  className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
                 />
-                <div className="absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-1.5">
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="text-slate-400 hover:text-white transition-colors"
-                  >
-                    {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
-                  </button>
-                  <Key className="w-4 h-4 text-emerald-400/60 pointer-events-none" />
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
             </div>
 
-            {/* If Register: Phone, City & Payout (matches dbo.shopper_profiles attributes) */}
+            {/* If Register: Phone, City & Payout */}
             {mode === "register" && (
               <>
-                {/* Phone (matches dbo.users.phone) */}
+                {/* Phone */}
                 <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-emerald-300/80 mb-0.5">
-                    WhatsApp / Phone Number *
+                  <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                    Phone / Mobile Number <span className="text-blue-600 dark:text-blue-400">*</span>
                   </label>
-                  <div className="relative border-b border-white/20 focus-within:border-emerald-400 transition-colors py-1.5">
-                    <input
-                      type="tel"
-                      required
-                      placeholder="+971 50 123 4567"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      className="w-full pr-8 bg-transparent text-sm text-white placeholder:text-slate-500 focus:outline-none"
-                    />
-                    <Phone className="w-4 h-4 text-emerald-400/60 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
-                  </div>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="+971 50 123 4567"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    className="w-full px-4 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-blue-600 focus:ring-1 focus:ring-blue-600 transition-all"
+                  />
                 </div>
 
-                {/* City & Country (matches dbo.shopper_profiles.city & country) */}
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-emerald-300/80 mb-0.5">
-                    Operating City &amp; Country *
-                  </label>
-                  <div className="relative border-b border-white/20 focus-within:border-emerald-400 transition-colors py-1.5">
-                    <select
-                      value={city}
-                      onChange={(e) => handleCityChange(e.target.value)}
-                      className="w-full pr-8 bg-transparent text-sm text-white focus:outline-none cursor-pointer appearance-none"
-                    >
-                      {globalCities.map((c) => (
-                        <option key={c.city} value={c.city} className="bg-[#06141a] text-white">
-                          {c.city}
+                {/* City & Country Grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                      Operating City &amp; Country <span className="text-blue-600 dark:text-blue-400">*</span>
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={city}
+                        onChange={(e) => handleCityChange(e.target.value)}
+                        className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-600 cursor-pointer appearance-none transition-all"
+                      >
+                        {globalCities.map((c) => (
+                          <option key={c.city} value={c.city}>
+                            {c.city}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
+                        ▼
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+                      Preferred Payout Method
+                    </label>
+                    <div className="relative">
+                      <select
+                        value={payoutMethod}
+                        onChange={(e) => setPayoutMethod(e.target.value)}
+                        className="w-full px-4 pr-10 py-3 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-[#060913] text-sm text-slate-900 dark:text-white focus:outline-none focus:border-blue-600 cursor-pointer appearance-none transition-all"
+                      >
+                        <option value="Direct Bank Transfer / IBAN">
+                          Direct Bank Transfer (IBAN / Wire)
                         </option>
-                      ))}
-                    </select>
-                    <MapPin className="w-4 h-4 text-emerald-400/60 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* Payout Method (matches dbo.shopper_profiles.payout_method) */}
-                <div>
-                  <label className="block text-[10px] font-mono uppercase tracking-wider text-emerald-300/80 mb-0.5">
-                    Preferred Payout Method
-                  </label>
-                  <div className="relative border-b border-white/20 focus-within:border-emerald-400 transition-colors py-1.5">
-                    <select
-                      value={payoutMethod}
-                      onChange={(e) => setPayoutMethod(e.target.value)}
-                      className="w-full pr-8 bg-transparent text-sm text-white focus:outline-none cursor-pointer appearance-none"
-                    >
-                      <option value="Direct Bank Transfer / IBAN" className="bg-[#06141a] text-white">
-                        Direct Bank Transfer (IBAN / Wire)
-                      </option>
-                      <option value="PayPal Instant Transfer" className="bg-[#06141a] text-white">
-                        PayPal Instant Transfer
-                      </option>
-                      <option value="Wise / Revolut" className="bg-[#06141a] text-white">
-                        Wise / Revolut Multi-Currency
-                      </option>
-                    </select>
-                    <Wallet className="w-4 h-4 text-emerald-400/60 absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none" />
+                        <option value="PayPal Instant Transfer">
+                          PayPal Instant Transfer
+                        </option>
+                        <option value="Wise / Revolut">
+                          Wise / Revolut Multi-Currency
+                        </option>
+                      </select>
+                      <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
+                        ▼
+                      </div>
+                    </div>
                   </div>
                 </div>
               </>
             )}
 
-            {/* 3D High-Impact Action Button */}
-            <div className="pt-4">
+            {/* Submit Action Button */}
+            <div className="pt-2 flex items-center justify-between">
               <motion.button
                 type="submit"
                 disabled={isLoading}
-                whileHover={{ scale: 1.02, translateY: -2 }}
-                whileTap={{ scale: 0.98, translateY: 1 }}
-                className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-300 text-slate-950 font-black text-sm transition-all cursor-pointer flex items-center justify-center gap-2 font-heading uppercase tracking-wider disabled:opacity-50"
-                style={{
-                  boxShadow: "0 10px 30px -5px rgba(16, 185, 129, 0.6), inset 0 2px 4px rgba(255,255,255,0.4)"
-                }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-8 py-3.5 rounded-lg bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white font-bold text-sm shadow-md shadow-blue-600/25 transition-all cursor-pointer flex items-center justify-center gap-2 font-heading uppercase tracking-wider disabled:opacity-50"
               >
                 {isLoading ? (
                   <>
-                    <RefreshCw className="w-4 h-4 animate-spin text-slate-950" />
+                    <RefreshCw className="w-4 h-4 animate-spin text-white" />
                     <span>Processing...</span>
                   </>
                 ) : (
-                  <span>{mode === "login" ? "LOG IN" : "REGISTER AS SHOPPER"}</span>
+                  <>
+                    <span>{mode === "login" ? "Log In" : "Submit"}</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </>
                 )}
               </motion.button>
-            </div>
 
-            {/* Links */}
-            <div className="pt-4 text-center space-y-2 text-xs">
-              <div>
-                <button
-                  type="button"
-                  onClick={() => alert("Password reset link sent to your registered email.")}
-                  className="text-slate-300 hover:text-white underline cursor-pointer font-medium"
-                >
-                  Forgot password?
-                </button>
-              </div>
-
-              <div>
-                {mode === "login" ? (
-                  <span className="text-slate-300">
-                    No account?{" "}
-                    <button
-                      type="button"
-                      onClick={() => { setMode("register"); setErrorMsg(null); }}
-                      className="text-emerald-300 hover:text-emerald-200 underline font-bold cursor-pointer"
-                    >
-                      Create one!
-                    </button>
-                  </span>
-                ) : (
-                  <span className="text-slate-300">
-                    Already registered?{" "}
-                    <button
-                      type="button"
-                      onClick={() => { setMode("login"); setErrorMsg(null); }}
-                      className="text-emerald-300 hover:text-emerald-200 underline font-bold cursor-pointer"
-                    >
-                      Log In here
-                    </button>
-                  </span>
-                )}
-              </div>
-
-              <div className="pt-3 border-t border-white/10 mt-3">
-                <Link
-                  href="/register/client"
-                  prefetch={true}
-                  className="text-[11px] text-slate-300 hover:text-white flex items-center justify-center gap-1 transition-colors"
-                >
-                  <Building2 className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Looking to audit your brand? Register as Client →</span>
-                </Link>
-              </div>
-
+              <button
+                type="button"
+                onClick={() => alert("Password reset link sent to your registered email.")}
+                className="text-xs text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 underline font-medium cursor-pointer"
+              >
+                Forgot password?
+              </button>
             </div>
 
           </form>
 
-        </motion.div>
+        </div>
+
+        {/* =========================================================================
+            SECTION 2: THEORY SIDE (BELOW THE CREDENTIALS)
+            ========================================================================= */}
+        <div className="pt-4 pb-10 space-y-6 border-t border-slate-200 dark:border-slate-800">
+          
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/25 text-blue-600 dark:text-blue-400 text-xs font-mono font-bold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Field Evaluator &amp; Auditor Network</span>
+          </div>
+
+          <h2 className="font-heading font-black text-2xl sm:text-3xl text-slate-900 dark:text-white tracking-tight uppercase leading-snug">
+            SHOPPER REGISTRATION: JOIN THE PREMIER FIELD EVALUATOR NETWORK
+          </h2>
+
+          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed max-w-4xl">
+            Welcome to the PulseAI Shopper Portal. As a verified field auditor across Dubai, Abu Dhabi, Riyadh, and GCC markets, you play a vital role in evaluating retail store standards, luxury brand service execution, and customer experience quality.
+          </p>
+
+          <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
+            <h3 className="font-heading font-bold text-lg sm:text-xl text-slate-800 dark:text-slate-100 uppercase tracking-tight mb-2 flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <span>SHOPPER BENEFITS &amp; GUARANTEED PAYOUTS</span>
+            </h3>
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-4xl">
+              Evaluators in our network enjoy flexible auditing schedules, instant automated payout transfers via IBAN or PayPal, and direct assignment to top tier luxury retail, dining, automotive, and hospitality audits.
+            </p>
+          </div>
+
+          <div className="pt-2">
+            <h4 className="font-heading font-bold text-sm sm:text-base text-slate-800 dark:text-slate-100 mb-2">
+              Enhanced Features of Shopper Registration
+            </h4>
+            <ul className="space-y-1.5 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>Instant dispatch notifications for nearby mystery shopping missions</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>Verified trust score tracking &amp; priority assignment for high-value audits</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>Direct payout transfers via IBAN, PayPal, or Wise Multi-Currency</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>Mobile AI upload portal for photo proof &amp; audio evaluations</span>
+              </li>
+            </ul>
+          </div>
+        </div>
 
       </div>
 
     </div>
   );
 }
+
+

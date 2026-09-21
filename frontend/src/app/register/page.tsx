@@ -75,40 +75,67 @@ export default function RegisterHubPage() {
     setErrorMsg(null);
     setSuccessMsg(null);
 
-    try {
-      try {
-        const payload = {
-          email,
-          password,
-          full_name: fullName,
-          phone: phone || "+971 50 123 4567",
-          role,
-          company_name: role === "client" ? (companyName || `${fullName}'s Enterprise`) : undefined,
-          industry: role === "client" ? "Retail & Consumer" : undefined
-        };
+    const apiBase = (typeof window !== "undefined" && `${window.location.protocol}//${window.location.hostname}:8000/api/v1`) || process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
 
-        const res = await axios.post("http://localhost:8000/api/v1/auth/register", payload, {
-          timeout: 3000
+    try {
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanName = fullName.trim();
+      const cleanCompany = companyName.trim() || `${cleanName}'s Enterprise`;
+
+      const payload = {
+        email: cleanEmail,
+        password,
+        full_name: cleanName,
+        phone: phone.trim() || "+971 50 123 4567",
+        role,
+        company_name: role === "client" ? cleanCompany : undefined,
+        industry: role === "client" ? "Retail & Consumer" : undefined,
+        city: role === "shopper" ? city : "Dubai, UAE"
+      };
+
+      try {
+        const res = await axios.post(`${apiBase}/auth/register`, payload, {
+          timeout: 4000
         });
 
         if (res.data?.access_token) {
           localStorage.setItem("pulseai_token", res.data.access_token);
         }
-      } catch (err) {
-        // Fallback for offline demo
+      } catch (err: any) {
+        // If email already exists, attempt automatic login
+        if (err.response?.status === 400 || err.response?.data?.detail?.includes("already exists")) {
+          try {
+            const loginRes = await axios.post(`${apiBase}/auth/login`, {
+              email: cleanEmail,
+              password
+            }, { timeout: 4000 });
+
+            if (loginRes.data?.access_token) {
+              localStorage.setItem("pulseai_token", loginRes.data.access_token);
+            }
+          } catch (loginErr) {
+            throw loginErr;
+          }
+        } else {
+          throw err;
+        }
       }
 
       if (role === "client") {
-        localStorage.setItem("pulseai_client_company", companyName || "Enterprise Client");
-        localStorage.setItem("pulseai_client_name", fullName || "Brand Executive");
-        localStorage.setItem("pulseai_client_email", email);
-        setSuccessMsg(`✓ Welcome ${companyName || fullName}! Redirecting to Client Studio...`);
+        try {
+          localStorage.setItem("pulseai_client_company", cleanCompany);
+          localStorage.setItem("pulseai_client_name", cleanName || "Brand Executive");
+          localStorage.setItem("pulseai_client_email", cleanEmail);
+        } catch {}
+        setSuccessMsg(`âœ“ Welcome ${cleanCompany}! Redirecting to Client Studio...`);
         setTimeout(() => router.push("/client"), 700);
       } else {
-        localStorage.setItem("pulseai_shopper_name", fullName || "Field Evaluator");
-        localStorage.setItem("pulseai_shopper_city", city);
-        localStorage.setItem("pulseai_shopper_email", email);
-        setSuccessMsg(`✓ Welcome ${fullName}! Redirecting to Shopper Radar...`);
+        try {
+          localStorage.setItem("pulseai_shopper_name", cleanName || "Field Evaluator");
+          localStorage.setItem("pulseai_shopper_city", city);
+          localStorage.setItem("pulseai_shopper_email", cleanEmail);
+        } catch {}
+        setSuccessMsg(`âœ“ Welcome ${cleanName}! Redirecting to Shopper Radar...`);
         setTimeout(() => router.push("/shopper"), 700);
       }
 
@@ -120,31 +147,28 @@ export default function RegisterHubPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--bg-main)] text-[var(--text-primary)] py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
-      
-      {/* 3D Ambient Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-gradient-to-tr from-indigo-600/20 via-purple-600/15 to-emerald-500/20 blur-[180px] pointer-events-none rounded-full" />
+    <div className="min-h-screen bg-slate-50 text-slate-900 py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden font-sans">
 
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Breadcrumb Bar */}
-        <div className="flex items-center gap-2 text-xs font-mono text-slate-500 dark:text-slate-400 mb-6">
-          <Link href="/" prefetch={true} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Home</Link>
+        <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-6">
+          <Link href="/" prefetch={true} className="hover:text-blue-600 transition-colors">Home</Link>
           <ChevronRight className="w-3 h-3 text-slate-400" />
-          <span className="text-indigo-600 dark:text-indigo-400 font-bold">Registration Hub</span>
+          <span className="text-blue-600 font-bold">Registration Hub</span>
         </div>
 
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-600 dark:text-indigo-400 text-xs font-mono font-bold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md bg-blue-50 border border-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Unified Onboarding Portal</span>
           </div>
 
-          <h1 className="font-heading font-black text-3xl sm:text-4xl text-slate-900 dark:text-white tracking-tight">
+          <h1 className="font-bold text-3xl sm:text-4xl text-slate-900 tracking-tight">
             Join the PulseAI Intelligence Ecosystem
           </h1>
-          <p className="text-sm text-slate-600 dark:text-slate-400 mt-1 max-w-xl mx-auto">
+          <p className="text-sm text-slate-600 mt-1 max-w-xl mx-auto">
             Choose your account type below to commission enterprise mystery shopping or get paid as a field evaluator.
           </p>
         </div>
@@ -158,25 +182,25 @@ export default function RegisterHubPage() {
             {/* Client Option Card */}
             <div 
               onClick={() => { setRole("client"); setErrorMsg(null); }}
-              className={`p-5 rounded-3xl border transition-all cursor-pointer ${
+              className={`p-5 rounded-md border transition-colors cursor-pointer ${
                 role === "client"
-                  ? "bg-indigo-600/10 border-indigo-500/80 shadow-lg shadow-indigo-600/10 ring-1 ring-indigo-500/50"
-                  : "bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 hover:border-slate-400"
+                  ? "bg-blue-50 border-blue-500 shadow-sm"
+                  : "bg-white border-slate-200 hover:border-slate-400"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
-                <div className={`p-2.5 rounded-2xl ${role === "client" ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}>
+                <div className={`p-2.5 rounded-md ${role === "client" ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500"}`}>
                   <Building2 className="w-5 h-5" />
                 </div>
-                <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full ${role === "client" ? "bg-indigo-500/20 text-indigo-400" : "bg-slate-200 dark:bg-slate-800 text-slate-400"}`}>
+                <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-md ${role === "client" ? "bg-blue-100 text-blue-700" : "bg-slate-200 text-slate-500"}`}>
                   For Brands
                 </span>
               </div>
-              <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white">Brand Client</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              <h3 className="font-bold text-base text-slate-900">Brand Client</h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Deploy mystery audits, retail shelf planogram checks, and access real-time executive CX analytics.
               </p>
-              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400">
+              <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs font-bold text-blue-600">
                 <span>Select Client Account</span>
                 <ChevronRight className="w-4 h-4" />
               </div>
@@ -185,34 +209,34 @@ export default function RegisterHubPage() {
             {/* Shopper Option Card */}
             <div 
               onClick={() => { setRole("shopper"); setErrorMsg(null); }}
-              className={`p-5 rounded-3xl border transition-all cursor-pointer ${
+              className={`p-5 rounded-md border transition-colors cursor-pointer ${
                 role === "shopper"
-                  ? "bg-emerald-600/10 border-emerald-500/80 shadow-lg shadow-emerald-600/10 ring-1 ring-emerald-500/50"
-                  : "bg-white/60 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 hover:border-slate-400"
+                  ? "bg-emerald-50 border-emerald-500 shadow-sm"
+                  : "bg-white border-slate-200 hover:border-slate-400"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
-                <div className={`p-2.5 rounded-2xl ${role === "shopper" ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/30" : "bg-slate-100 dark:bg-slate-800 text-slate-500"}`}>
+                <div className={`p-2.5 rounded-md ${role === "shopper" ? "bg-emerald-600 text-white" : "bg-slate-100 text-slate-500"}`}>
                   <Smartphone className="w-5 h-5" />
                 </div>
-                <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-full ${role === "shopper" ? "bg-emerald-500/20 text-emerald-400" : "bg-slate-200 dark:bg-slate-800 text-slate-400"}`}>
+                <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded-md ${role === "shopper" ? "bg-emerald-100 text-emerald-700" : "bg-slate-200 text-slate-500"}`}>
                   For Evaluators
                 </span>
               </div>
-              <h3 className="font-heading font-bold text-base text-slate-900 dark:text-white">Mystery Shopper</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+              <h3 className="font-bold text-base text-slate-900">Mystery Shopper</h3>
+              <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                 Visit nearby stores &amp; luxury boutiques, complete photo missions on your mobile, and earn guaranteed cash.
               </p>
-              <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-xs font-bold text-emerald-600 dark:text-emerald-400">
+              <div className="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs font-bold text-emerald-600">
                 <span>Select Shopper Account</span>
                 <ChevronRight className="w-4 h-4" />
               </div>
             </div>
 
             {/* Trust badge */}
-            <div className="p-4 rounded-2xl bg-slate-100/60 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 text-xs text-slate-500 dark:text-slate-400 space-y-2">
-              <div className="flex items-center gap-2 font-bold text-slate-700 dark:text-slate-300">
-                <ShieldCheck className="w-4 h-4 text-indigo-500" />
+            <div className="p-4 rounded-md bg-white border border-slate-200 text-xs text-slate-500 space-y-2">
+              <div className="flex items-center gap-2 font-bold text-slate-700">
+                <ShieldCheck className="w-4 h-4 text-blue-600" />
                 <span>MSPA &amp; ESOMAR Compliance</span>
               </div>
               <p className="text-[11px] leading-relaxed">
@@ -224,17 +248,17 @@ export default function RegisterHubPage() {
 
           {/* Right Column: Dynamic Responsive Form Card */}
           <div className="lg:col-span-8">
-            <div className="rounded-3xl border border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-900/90 backdrop-blur-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+            <div className="rounded-md border border-slate-200 bg-white p-6 sm:p-8 shadow-sm relative overflow-hidden">
               
               {/* Role Switcher Tabs */}
-              <div className="grid grid-cols-2 p-1.5 bg-slate-100 dark:bg-slate-950/90 rounded-2xl border border-slate-200 dark:border-slate-800 mb-6 shadow-inner">
+              <div className="grid grid-cols-2 p-1.5 bg-slate-50 rounded-md border border-slate-200 mb-6">
                 <button
                   type="button"
                   onClick={() => { setRole("client"); setErrorMsg(null); }}
-                  className={`py-3 px-3 text-xs sm:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                  className={`py-3 px-3 text-xs sm:text-sm font-bold rounded-sm transition-colors flex items-center justify-center gap-2 cursor-pointer ${
                     role === "client"
-                      ? "bg-indigo-600 !text-white shadow-md shadow-indigo-600/30 scale-[1.01]"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                      ? "bg-blue-600 text-white shadow-sm"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <Building2 className="w-4 h-4 shrink-0" />
@@ -244,10 +268,10 @@ export default function RegisterHubPage() {
                 <button
                   type="button"
                   onClick={() => { setRole("shopper"); setErrorMsg(null); }}
-                  className={`py-3 px-3 text-xs sm:text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                  className={`py-3 px-3 text-xs sm:text-sm font-bold rounded-sm transition-colors flex items-center justify-center gap-2 cursor-pointer ${
                     role === "shopper"
-                      ? "bg-emerald-600 !text-white shadow-md shadow-emerald-600/30 scale-[1.01]"
-                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+                      ? "bg-emerald-600 text-white shadow-sm"
+                      : "text-slate-600 hover:text-slate-900"
                   }`}
                 >
                   <Smartphone className="w-4 h-4 shrink-0" />
@@ -257,14 +281,14 @@ export default function RegisterHubPage() {
 
               {/* Feedback Messages */}
               {errorMsg && (
-                <div className="p-4 mb-6 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs sm:text-sm flex items-center gap-3">
+                <div className="p-4 mb-6 rounded-md bg-rose-50 border border-rose-200 text-rose-600 text-xs sm:text-sm flex items-center gap-3">
                   <AlertCircle className="w-5 h-5 shrink-0 text-rose-500" />
                   <span>{errorMsg}</span>
                 </div>
               )}
 
               {successMsg && (
-                <div className="p-4 mb-6 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-emerald-600 dark:text-emerald-400 text-xs sm:text-sm flex items-center gap-3">
+                <div className="p-4 mb-6 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-600 text-xs sm:text-sm flex items-center gap-3">
                   <CheckCircle2 className="w-5 h-5 shrink-0 text-emerald-500" />
                   <span>{successMsg}</span>
                 </div>
@@ -276,7 +300,7 @@ export default function RegisterHubPage() {
                 {/* Row 1: Full Name + Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                       Full Name *
                     </label>
                     <div className="relative">
@@ -287,13 +311,13 @@ export default function RegisterHubPage() {
                         placeholder="Sarah Jenkins"
                         value={fullName}
                         onChange={(e) => setFullName(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                        className="w-full pl-10 pr-4 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                       {role === "client" ? "Corporate Email *" : "Personal Email *"}
                     </label>
                     <div className="relative">
@@ -304,7 +328,7 @@ export default function RegisterHubPage() {
                         placeholder={role === "client" ? "sarah@company.com" : "sarah.shopper@gmail.com"}
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                        className="w-full pl-10 pr-4 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
                       />
                     </div>
                   </div>
@@ -313,7 +337,7 @@ export default function RegisterHubPage() {
                 {/* Row 2: Phone + Role-Specific Field */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                       Phone / WhatsApp Number *
                     </label>
                     <div className="relative">
@@ -324,14 +348,14 @@ export default function RegisterHubPage() {
                         placeholder="+971 50 123 4567"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                        className="w-full pl-10 pr-4 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
                       />
                     </div>
                   </div>
 
                   {role === "client" ? (
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                         Company / Brand Name *
                       </label>
                       <div className="relative">
@@ -342,13 +366,13 @@ export default function RegisterHubPage() {
                           placeholder="e.g. Starbucks, Unilever"
                           value={companyName}
                           onChange={(e) => setCompanyName(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                          className="w-full pl-10 pr-4 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
                         />
                       </div>
                     </div>
                   ) : (
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                         City &amp; Country *
                       </label>
                       <div className="relative">
@@ -356,14 +380,14 @@ export default function RegisterHubPage() {
                         <select
                           value={city}
                           onChange={(e) => setCity(e.target.value)}
-                          className="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 cursor-pointer appearance-none transition-all"
+                          className="w-full pl-10 pr-10 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 focus:outline-none focus:border-blue-500 cursor-pointer appearance-none transition-colors"
                         >
                           {globalCities.map((c) => (
                             <option key={c} value={c}>{c}</option>
                           ))}
                         </select>
                         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
-                          ▼
+                          â–¼
                         </div>
                       </div>
                     </div>
@@ -374,14 +398,14 @@ export default function RegisterHubPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {role === "client" ? (
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                         Service Needed
                       </label>
                       <div className="relative">
                         <select
                           value={serviceNeeded}
                           onChange={(e) => setServiceNeeded(e.target.value)}
-                          className="w-full px-4 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-indigo-500 cursor-pointer appearance-none transition-all"
+                          className="w-full px-4 pr-10 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 focus:outline-none focus:border-blue-500 cursor-pointer appearance-none transition-colors"
                         >
                           <option value="Mystery Shopping & CX Evaluation">Mystery Shopping &amp; CX Audits</option>
                           <option value="Retail Shelf Planogram CV Audits">Retail Planograms &amp; Computer Vision</option>
@@ -389,34 +413,34 @@ export default function RegisterHubPage() {
                           <option value="Price & Competitor Benchmarking">Price &amp; Competitor Checks</option>
                         </select>
                         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
-                          ▼
+                          â–¼
                         </div>
                       </div>
                     </div>
                   ) : (
                     <div>
-                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                         Preferred Payout Method
                       </label>
                       <div className="relative">
                         <select
                           value={payoutMethod}
                           onChange={(e) => setPayoutMethod(e.target.value)}
-                          className="w-full px-4 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-emerald-500 cursor-pointer appearance-none transition-all"
+                          className="w-full px-4 pr-10 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 focus:outline-none focus:border-blue-500 cursor-pointer appearance-none transition-colors"
                         >
                           <option value="Direct Bank Transfer / IBAN">Direct Bank Transfer / IBAN</option>
                           <option value="PayPal Fast Cashout">PayPal Instant Transfer</option>
                           <option value="Wise / Revolut Account">Wise / Revolut</option>
                         </select>
                         <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xs">
-                          ▼
+                          â–¼
                         </div>
                       </div>
                     </div>
                   )}
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mb-1.5 font-heading">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
                       Password *
                     </label>
                     <div className="relative">
@@ -424,15 +448,15 @@ export default function RegisterHubPage() {
                       <input
                         type={showPassword ? "text" : "password"}
                         required
-                        placeholder="••••••••••••"
+                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className="w-full pl-10 pr-10 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                        className="w-full pl-10 pr-10 py-3 rounded-md border border-slate-200 bg-slate-50 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 transition-colors"
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -441,16 +465,10 @@ export default function RegisterHubPage() {
                 </div>
 
                 {/* Submit CTA Button */}
-                <motion.button
+                <button
                   type="submit"
                   disabled={isLoading}
-                  whileHover={{ scale: 1.01 }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`w-full py-3.5 px-6 rounded-xl text-white font-bold text-sm shadow-xl flex items-center justify-center gap-2 cursor-pointer transition-all disabled:opacity-50 disabled:cursor-not-allowed group font-heading mt-2 ${
-                    role === "client"
-                      ? "bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 shadow-indigo-600/30 hover:from-indigo-500 hover:to-cyan-400"
-                      : "bg-gradient-to-r from-emerald-600 via-teal-500 to-cyan-500 shadow-emerald-600/30 hover:from-emerald-500 hover:to-cyan-400"
-                  }`}
+                  className="w-full py-3.5 px-6 rounded-md bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-sm flex items-center justify-center gap-2 cursor-pointer transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-2"
                 >
                   {isLoading ? (
                     <>
@@ -464,23 +482,23 @@ export default function RegisterHubPage() {
                           ? "Complete Client Registration & Access Studio"
                           : "Activate Evaluator Account & Start Auditing"}
                       </span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-4 h-4" />
                     </>
                   )}
-                </motion.button>
+                </button>
 
                 {/* Direct Links */}
-                <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+                <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500">
                   <div className="flex items-center gap-3">
-                    <Link href="/register/client" prefetch={true} className="hover:text-indigo-600 dark:hover:text-indigo-400 underline">
+                    <Link href="/register/client" prefetch={true} className="hover:text-blue-600 underline">
                       Dedicated Client Page
                     </Link>
-                    <span>•</span>
-                    <Link href="/register/shopper" prefetch={true} className="hover:text-emerald-600 dark:hover:text-emerald-400 underline">
+                    <span>â€¢</span>
+                    <Link href="/register/shopper" prefetch={true} className="hover:text-emerald-600 underline">
                       Dedicated Shopper Page
                     </Link>
                   </div>
-                  <Link href="/login" prefetch={true} className="text-slate-700 dark:text-slate-300 font-bold hover:underline">
+                  <Link href="/login" prefetch={true} className="text-slate-700 font-bold hover:underline">
                     Already registered? Sign In
                   </Link>
                 </div>
@@ -497,3 +515,5 @@ export default function RegisterHubPage() {
     </div>
   );
 }
+
+
